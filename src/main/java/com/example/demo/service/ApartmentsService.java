@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.entity.Apartments;
+import org.springframework.stereotype.Service;
 
+import com.example.demo.entity.Apartments;
+@Service
 public interface ApartmentsService {
 	void addApartments(Apartments apartments);
 	List<Apartments> getAllApartments();

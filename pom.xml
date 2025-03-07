@@ -80,14 +80,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-=======
-			<groupId>com.example</groupId>
-			<artifactId>SpringBootApp</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
->>>>>>> dc4429b8a1479ef718303c08c2a85d6cb66ebdaa
 		</dependency>
 	</dependencies>
 
