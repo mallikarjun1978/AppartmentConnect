@@ -13,14 +13,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "booking_requests") // Optional: Specify the table name
+@Table(name = "booking_requests") 
 @Data
 @NoArgsConstructor
 public class BookingRequests {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id") // Optional: Specify column name
+    @Column(name = "booking_id") 
     private int bookingId;
 
     @Column(name = "resident_id")

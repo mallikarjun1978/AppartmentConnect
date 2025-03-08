@@ -1,4 +1,4 @@
-package com.example.demo.serviceImpl;
+package com.example.demo.serviceimpl;
 
 import java.util.List;
 import java.util.Optional;
