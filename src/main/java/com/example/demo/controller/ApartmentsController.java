@@ -69,7 +69,7 @@ public class ApartmentsController {
 		return new ResponseEntity<>("Apartment deleted successfully", HttpStatus.OK);
 	}
 
-	@GetMapping("/apartmentpage")
+	@GetMapping("/addapartment")
 	public ModelAndView addProduct(Model model) {
 		Apartments apartments = new Apartments();
 		model.addAttribute("apartments", apartments);
