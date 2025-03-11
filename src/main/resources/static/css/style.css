@@ -1,0 +1,174 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ECF0F1; /* Light Gray background */
+    color: #34495E; /* Dark Gray text */
+}
+
+/* Hero section */
+.hero {
+    background-color: #2C3E50; /* Dark Blue */
+    color: white;
+}
+
+.hero h1, .hero p {
+    font-weight: 300;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #2C3E50; /* Dark Blue */
+    color: white;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: #3498DB; /* Bright Blue on hover */
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Primary button */
+.btn-primary {
+    background-color: #2C3E50; /* Dark Blue */
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #3498DB; /* Bright Blue on hover */
+}
+
+/* Light button */
+.btn-light {
+    background-color: #FFFFFF; /* White background */
+    color: #2C3E50; /* Dark Blue text */
+    border: 1px solid #2C3E50;
+}
+
+.btn-light:hover {
+    background-color: #3498DB; /* Bright Blue on hover */
+    color: white;
+}
+
+/* Cards & Containers */
+.card {
+    background-color: #FFFFFF; /* White card background */
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.card-title {
+    color: #2C3E50; /* Dark Blue for card titles */
+}
+
+.card-text {
+    color: #7F8C8D; /* Muted text for details */
+}
+
+.card-body a {
+    background-color: #3498DB; /* Bright Blue for buttons */
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+
+/* Section Styles */
+section {
+    padding: 60px 0;
+}
+
+.bg-light {
+    background-color: #ECF0F1 !important; /* Light Gray for background */
+}
+
+/* Footer */
+footer {
+    background-color: #2C3E50; /* Dark Blue */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Text Color for Primary and Muted Text */
+.text-muted {
+    color: #7F8C8D; /* Muted gray color */
+}
+
+.text-primary {
+    color: #34495E; /* Dark Gray for primary text */
+}
+
+/* Alerts */
+.success-message {
+    background-color: #27AE60; /* Green for success */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.error-message {
+    background-color: #E74C3C; /* Red for error */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.notification-alert {
+    background-color: #F1C40F; /* Yellow for notifications */
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Links */
+a {
+    color: #3498DB; /* Bright Blue for links */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #2C3E50; /* Dark Blue on hover */
+}
+
+/* Form Fields */
+input, textarea, select {
+    background-color: #FFFFFF; /* White background for form fields */
+    border: 1px solid #BDC3C7; /* Light gray border */
+    color: #34495E; /* Dark Gray text */
+    padding: 10px;
+    border-radius: 5px;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #3498DB; /* Bright Blue border on focus */
+    outline: none;
+}
+
+/* Additional Text Styling */
+h1, h2, h3, h4, h5, h6 {
+    color: #2C3E50; /* Dark Blue for headers */
+}
+
+p {
+    color: #34495E; /* Dark Gray for general text */
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
