@@ -55,11 +55,16 @@
                             <i class="fas fa-home"></i> Home
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/manage-apartments}">
-                            <i class="fas fa-building"></i> Manage Apartments
-                        </a>
-                    </li>
+					<li class="nav-item dropdown">
+					    <a class="nav-link dropdown-toggle" href="#" id="manageApartmentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					        <i class="fas fa-building"></i> Manage Apartments
+					    </a>
+					    <ul class="dropdown-menu" aria-labelledby="manageApartmentsDropdown">
+					        <li><a class="dropdown-item" th:href="@{/addapartment}">Add Apartments</a></li>
+					        <li><a class="dropdown-item" th:href="@{/viewapartments}">View Apartments</a></li>
+					    </ul>
+					</li>
+
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/admin/residents}">
                             <i class="fas fa-users"></i> Residents List

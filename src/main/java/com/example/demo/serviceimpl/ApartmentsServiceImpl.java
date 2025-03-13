@@ -45,17 +45,16 @@ public class ApartmentsServiceImpl implements ApartmentsService{
 	}
 
 	@Override
-	public Apartments getApartmentsById(int Id) {
-		// TODO Auto-generated method stub
-		Optional<Apartments> apartments=apartmentsRepository.findById(Id);
-		Apartments apart;
-		if(apartments.isPresent()) {
-			apart=apartments.get();
-		}else {
-			throw new ResourceNotFoundException("Apartments", "Id", Id);
-		}
-		return apart;
+	public Optional<Apartments> getApartmentsById(int id) {
+	    Optional<Apartments> apartment = apartmentsRepository.findById(id);
+	    
+	    if (!apartment.isPresent()) {
+	        throw new ResourceNotFoundException("Apartments", "Id", id);
+	    }
+	    
+	    return apartment;
 	}
+
 
 	@Override
 	public boolean deleteApartments(int Id) {
