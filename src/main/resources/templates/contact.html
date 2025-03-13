@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - ApartmentConnect</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        /* Apply a background color */
+        body {
+			background: url('images/apt contact.jpeg');
+            background-color: #f4f6f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .contact-section {
+            max-width: 900px;
+            margin: 30px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            border-radius: 5px;
+        }
+
+        .btn-submit {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-submit:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 15px;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Include -->
+    <div th:replace="menu :: menu"></div>
+
+    <header>
+        <h1>Contact Us - ApartmentConnect</h1>
+    </header>
+
+    <div class="contact-section">
+        <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <p>If you have any questions, concerns, or feedback, feel free to reach out to us. We're here to help!</p>
+        </div>
+
+        <!-- Contact Form -->
+        <form action="/submit-contact" method="POST">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" class="form-control" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ApartmentConnect. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
