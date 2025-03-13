@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Admin {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +41,9 @@ public class Admin {
 
 	@Column(updatable = true)
 	private LocalDateTime createdAt = LocalDateTime.now();
+	
+	@Column
+	private String role;
+	
+	
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminDashBoard {
 
-    @GetMapping("/home")
+    @GetMapping("/adminhome")
     public String adminHome(Model model) {
         
         return "adminhome";

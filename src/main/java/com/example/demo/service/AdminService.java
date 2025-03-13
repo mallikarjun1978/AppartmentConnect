@@ -13,7 +13,6 @@ public interface AdminService {
 
 	Optional<Admin> getAdminById(Long id);
 
-	Optional<Admin> getAdminByUsername(String username);
-
+	
 	void deleteAdmin(Long id);
 }
