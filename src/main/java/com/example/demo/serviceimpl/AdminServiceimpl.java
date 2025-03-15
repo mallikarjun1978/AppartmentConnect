@@ -29,13 +29,12 @@ public class AdminServiceimpl implements AdminService {
 		return adminRepository.findById(id);
 	}
 
-	@Override
-	public Optional<Admin> getAdminByUsername(String username) {
-		return adminRepository.findByUsername(username);
-	}
+	
 
 	@Override
 	public void deleteAdmin(Long id) {
 		adminRepository.deleteById(id);
 	}
+
+	
 }

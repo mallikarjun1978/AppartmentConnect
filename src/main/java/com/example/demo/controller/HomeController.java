@@ -35,10 +35,5 @@ public class HomeController {
         return "contact";
     }
 
-    // Map the /login endpoint to render the login.html page
-    @GetMapping("/login")
-    public String login() {
-        // Return the login view (login.html)
-        return "login";
-    }
+  
 }

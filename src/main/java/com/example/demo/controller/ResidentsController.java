@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Residents;
 import com.example.demo.service.ResidentsService;
@@ -29,11 +32,13 @@ public class ResidentsController {
 		residentsService.addResidents(residents);
 		return new ResponseEntity<Residents>(residents,HttpStatus.CREATED);
 	}
-	@PostMapping(value = "/addResidentsXML", consumes = MediaType.APPLICATION_XML_VALUE)
-	public ResponseEntity<Residents> addResidentsXML(@RequestBody Residents residents) {
-		residentsService.addResidents(residents);
-		return new ResponseEntity<>(residents, HttpStatus.CREATED);
+	
+	@GetMapping("/auth/residentslogin")
+	public ModelAndView loginmethod(Model model) {
+		return new ModelAndView("login");
 	}
+
+	
 	
 	@GetMapping(value = "/allResidents")
 	public ResponseEntity<List<Residents>> getAllResidents() {
@@ -93,5 +98,7 @@ public class ResidentsController {
 		}
 		return new ResponseEntity<>(flag, HttpStatus.OK);
 	}
+	
+	
 		
 }

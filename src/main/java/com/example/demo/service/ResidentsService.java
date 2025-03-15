@@ -14,4 +14,7 @@ public interface ResidentsService {
 	Residents getResidentsById(int id);
 	boolean deleteResidents(int id);
 	boolean updateResidents(Residents residents);
+	
+	
+
 }
