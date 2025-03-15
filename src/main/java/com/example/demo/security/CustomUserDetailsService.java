@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import java.net.Authenticator.RequestorType;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
@@ -20,6 +21,8 @@ import com.example.demo.entity.Residents;
 import com.example.demo.repository.AdminRepository;
 import com.example.demo.repository.ResidentsRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -28,6 +31,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	AdminRepository adminRepository;
+
+	@Autowired
+	private HttpSession session; // Inject HttpSession
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,6 +44,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		if (residents != null) {
 			///////////
 			System.out.println("residents=" + residents);
+			// Store the resident in session
+			session.setAttribute("residents", residents);
 
 			// Encode the password
 
@@ -55,6 +63,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 		if (admin != null) {
 			///////////
 			System.out.println("admin=" + admin);
+			// Store the admin in session
+			session.setAttribute("admin", admin);
 
 			authorities = null;
 

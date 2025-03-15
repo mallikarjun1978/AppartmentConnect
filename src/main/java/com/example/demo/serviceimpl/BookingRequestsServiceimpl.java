@@ -11,7 +11,7 @@ import com.example.demo.repository.BookingRequestsRepository;
 import com.example.demo.service.BookingRequestsService;
 
 @Service
-public class BookingRequestsServiceImpl implements BookingRequestsService {
+public class BookingRequestsServiceimpl implements BookingRequestsService {
 
     @Autowired
     private BookingRequestsRepository bookingRequestsRepository;

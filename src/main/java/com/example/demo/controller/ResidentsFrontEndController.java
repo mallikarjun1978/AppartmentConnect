@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -15,9 +16,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Residents;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/front-end/residents")
 public class ResidentsFrontEndController {
+	@Autowired
+	private HttpSession session; // Inject HttpSession
 	
 	// Map the /login endpoint to render the login.html page
     @GetMapping("/login")
@@ -75,6 +80,10 @@ public class ResidentsFrontEndController {
 	public ModelAndView residentHome(Model model) {
 		//Residents residents = new Residents();
 		//model.addAttribute("residents",residents);
+		Residents resident = (Residents) session.getAttribute("residents");
+		
+		System.out.println("residents=====" + resident);
+		model.addAttribute("resident_name", resident.getFirstName()+" "+resident.getLastName());
 		ModelAndView view = new ModelAndView("residenthome");
 		return view;
 	} 
