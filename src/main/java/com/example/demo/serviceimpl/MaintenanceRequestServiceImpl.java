@@ -84,6 +84,47 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 	}
 	}
 
+	 @Override
+	    public List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId) {
+	        // Find all maintenance requests associated with a specific resident
+	        return maintenanceRepository.findByResidentId(loggedInResidentId);
+	    }
+
+	    @Override
+	    public void saveRequest(MaintenanceRequest newRequest) {
+	        // Save a new maintenance request to the repository
+	        maintenanceRepository.save(newRequest);
+	    }
+
+		@Override
+		public MaintenanceRequest findTopByOrderByCreatedAtDesc() {
+			// TODO Auto-generated method stub
+			return maintenanceRepository.findTopByOrderByCreatedAtDesc();
+		}
+
+		
+		@Override
+		 // Update the status of a maintenance request
+	    public boolean updateStatus(Long requestId) {
+	        MaintenanceRequest request = maintenanceRepository.findById(requestId).orElse(null);
+	        if (request != null) {
+	            // Toggle the status between 'Pending' and 'Completed'
+	            if ("Pending".equals(request.getStatus())) {
+	                request.setStatus("Completed");
+	            } else {
+	                request.setStatus("Pending");
+	            }
+	            maintenanceRepository.save(request);
+	            return true;
+	        }
+	        return false;
+	    }
+
+		@Override
+		public MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId) {
+		    return maintenanceRepository.findTopByResidentIdOrderByCreatedAtDesc(residentId);
+		}
+
 	
 
 	
