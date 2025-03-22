@@ -1,5 +1,6 @@
 package com.example.demo.serviceimpl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +84,15 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 		return false;
 	}
 	}
+
+	@Override
+	public List<MaintenanceRequest> getPendingRequests() {
+        return maintenanceRepository.findByStatus("Pending");
+    }
+
+    public long countPendingRequests() {
+        return maintenanceRepository.countByStatus("Pending");
+    }
 
 	
 

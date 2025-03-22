@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.Collection;
 import  java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public interface MaintenanceRequestService {
 	boolean deleteMaintenanceRequest(int Id);
 
 	boolean updateMaintenanceRequest(MaintenanceRequest maintenanceRequest);
+
+	long countPendingRequests();
+
+	Collection<MaintenanceRequest> getPendingRequests();
 
 	
 }
