@@ -80,6 +80,12 @@ public class ResidentsServiceImpl implements ResidentsService {
 	    }
 	}
 
+	@Override
+	 public Residents findResidentByUsername(String loggedInUserName) {
+        // Find and return the Resident entity by username
+        return residentsRepository.findByUserName(loggedInUserName);
+    }
+
 	
 	
 

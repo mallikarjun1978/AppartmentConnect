@@ -21,5 +21,17 @@ public interface MaintenanceRequestService {
 
 	boolean updateMaintenanceRequest(MaintenanceRequest maintenanceRequest);
 
+	List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId);
+
+	void saveRequest(MaintenanceRequest newRequest);
+
+	MaintenanceRequest findTopByOrderByCreatedAtDesc();
+
+	
+
+	boolean updateStatus(Long Id);
+
+	MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId);
+
 	
 }
