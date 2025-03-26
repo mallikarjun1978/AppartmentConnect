@@ -14,13 +14,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
-
 @Entity
 @Table(name="residents")
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)  // Ensure auditing is enabled
+@ToString
 public class Residents {
 	@Id
 	@Column(name="id",nullable=false)
@@ -44,4 +45,7 @@ public class Residents {
 	@Column(name="registration_date",nullable=true)
 	@CreatedDate
 	private Timestamp registrationDate;
+	
+	@Column
+	private String role;
 }

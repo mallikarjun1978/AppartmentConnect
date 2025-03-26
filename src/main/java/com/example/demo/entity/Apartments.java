@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,24 +35,21 @@ public class Apartments {
     private BigDecimal price;
 
     @Column(name = "is_available", nullable = false)
-    private boolean isAvailable;
+    private Boolean isAvailable;
+
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "created_at", nullable = false, updatable = false)
    
-    private Timestamp createdAt;
+    private LocalDateTime createdAt; 
 
-    @PrePersist
-    public void prePersist() {
-        if (createdAt == null) {
-            createdAt = new Timestamp(System.currentTimeMillis()); // Set current timestamp
-        }
+   
     }
 
 	
 
 
 
-}
+

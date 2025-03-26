@@ -94,6 +94,11 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
         return maintenanceRepository.countByStatus("Pending");
     }
 
+	@Override
+	public List<MaintenanceRequest> getPendingMaintenanceRequests() {
+        // Fetch pending requests from the database using the repository
+        return maintenanceRepository.findByStatus("PENDING");
+    }
 	
 
 	

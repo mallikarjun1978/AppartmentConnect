@@ -45,17 +45,16 @@ public class ApartmentsServiceImpl implements ApartmentsService{
 	}
 
 	@Override
-	public Apartments getApartmentsById(int Id) {
-		// TODO Auto-generated method stub
-		Optional<Apartments> apartments=apartmentsRepository.findById(Id);
-		Apartments apart;
-		if(apartments.isPresent()) {
-			apart=apartments.get();
-		}else {
-			throw new ResourceNotFoundException("Apartments", "Id", Id);
-		}
-		return apart;
+	public Optional<Apartments> getApartmentsById(int id) {
+	    Optional<Apartments> apartment = apartmentsRepository.findById(id);
+	    
+	    if (!apartment.isPresent()) {
+	        throw new ResourceNotFoundException("Apartments", "Id", id);
+	    }
+	    
+	    return apartment;
 	}
+
 
 	@Override
 	public boolean deleteApartments(int Id) {
@@ -81,5 +80,22 @@ public class ApartmentsServiceImpl implements ApartmentsService{
 		return false;
 	}
 	}
+
+	@Override
+	public long getTotalApartments() {
+        // Fetching the total number of apartments from the database
+        return apartmentsRepository.count();
+    }
+
+    /**
+     * Method to get the count of available apartments.
+     * @return The count of available apartments (isAvailable = true).
+     */
+	
+	@Override
+    public long getAvailableApartments() {
+        // Custom query method in the repository to count apartments where isAvailable = true
+        return apartmentsRepository.countByIsAvailableTrue();
+    }
 
 }

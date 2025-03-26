@@ -72,7 +72,7 @@
         <h2 class="text-primary">APTCONNECT</h2>
         <form th:action="@{/login}" method="post">
             <div class="mb-3">
-                <input type="email" class="form-control" name="email" placeholder="Email" required>
+                <input type="text" class="form-control" name="username" placeholder="Username" required>
             </div>
             <div class="mb-3">
                 <input type="password" class="form-control" name="password" placeholder="Password" required>
@@ -80,7 +80,7 @@
             <button type="submit" class="btn login-btn">Login</button>
         </form>
         <p class="text-danger" th:if="${error}">Invalid credentials</p>
-        <a th:href="@{/register}" class="register-link">Register Now</a>
+        <a th:href="@{/front-end/residents/register}" class="register-link">Register Now</a>
     </div>
 </body>
 </html>

@@ -26,5 +26,7 @@ public interface MaintenanceRequestService {
 
 	Collection<MaintenanceRequest> getPendingRequests();
 
+	List<MaintenanceRequest> getPendingMaintenanceRequests();
+
 	
 }
