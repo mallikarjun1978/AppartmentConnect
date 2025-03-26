@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApartmentConnect - Find Your Perfect Apartment</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #ECF0F1; /* Light Gray background */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #2C3E50; /* Dark Blue */
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            color: #3498DB; /* Bright Blue on hover */
+        }
+
+        /* Main Image Section */
+        .main-image-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 70px); /* Subtract navbar height */
+            background-image: url('@{/images/apt Home.jpeg}');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px; /* This will give space from the fixed navbar */
+        }
+
+        .main-image-container .main-image-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: bold;
+            z-index: 10;
+			 color: black; /* Sky Blue text color */
+			text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7); /* White shadow behind text */
+        }
+
+        .main-image-container .main-image-text p {
+            font-size: 1.5rem;
+            margin: 15px 0;
+        }
+
+        .main-image-container .btn {
+            background-color: #3498DB; /* Bright Blue */
+            color: #34495E;
+            padding: 15px 25px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+        }
+
+        .main-image-container .btn:hover {
+            background-color: #2C3E50; /* Dark Blue on hover */
+        }
+
+        /* Apartment Section */
+        .apartments {
+            padding: 50px 20px;
+            background-color: #ECF0F1; /* White */
+            text-align: center;
+        }
+
+        .apartments h2 {
+            font-size: 2.5rem;
+            color: #2C3E50; /* Dark Blue */
+        }
+
+        .apartments .row {
+            margin-top: 40px;
+        }
+
+        /* Apartment Card */
+        .apartment-card {
+            background-color: #FFFFFF; /* White */
+            border: 1px solid #BDC3C7; /* Light Gray border */
+            border-radius: 10px;
+            padding: 20px;
+			box-shadow: 0 10px 20px rgba(135, 206, 235, 1); /* Sky Blue shadow */
+ /* Improved shadow */
+            margin-bottom: 20px;
+            transition: transform 0.3s ease-in-out; /* Smooth hover transition */
+        }
+
+        .apartment-card img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .apartment-card h5 {
+            color: #2C3E50; /* Dark Blue */
+            margin-top: 10px;
+        }
+
+        .apartment-card p {
+            color: #7F8C8D; /* Muted Gray */
+        }
+
+        .apartment-card .btn {
+            background-color: #3498DB; /* Bright Blue */
+            color: white;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .apartment-card .btn:hover {
+            background-color: #2C3E50; /* Dark Blue on hover */
+        }
+
+        .apartment-card:hover {
+            transform: translateY(-10px); /* Hover effect */
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-image-text h1 {
+                font-size: 2rem;
+            }
+
+            .main-image-text p {
+                font-size: 1rem;
+            }
+
+            .apartments h2 {
+                font-size: 2rem;
+            }
+
+            .apartment-card {
+                margin-bottom: 20px;
+            }
+
+            .apartment-card .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .navbar {
+                margin-bottom: 10px;
+            }
+
+            /* Adjust card layout for smaller screens */
+            .apartments .row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .apartment-card {
+                width: 90%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Include -->
+    <div th:replace="menu :: menu"></div>
+
+    <!-- Main Image Section with Hero Text -->
+    <section class="main-image-container">
+        <img th:src="@{/images/apt Home.jpeg}" alt="Apartment" class="main-image"> <!-- Thymeleaf src attribute -->
+        <div class="main-image-text">
+            <h1>Find Your Perfect Apartment</h1>
+            <p>Explore the best apartments in the city with ApartmentConnect</p>
+            <a href="#apartments" class="btn">Explore Apartments</a>
+        </div>
+    </section>
+
+    <br>
+
+    <!-- Available Apartments Section -->
+    <section id="apartments" class="apartments">
+        <div class="container">
+            <h2>Recently Viewed Apartments</h2>
+            <div class="row">
+                <!-- Apartment Card 1 -->
+                <div class="col-md-4">
+                    <div class="apartment-card">
+                        <img th:src="@{/images/apt home.jpg}" alt="Apartment 1"> <!-- Thymeleaf src attribute -->
+                        <h5>Apartment 1</h5>
+                        <p>Location: Downtown</p>
+                        <p>Rooms: 3</p>
+                        <a href="#" class="btn">Request More Info</a>
+                    </div>
+                </div>
+                <!-- Apartment Card 2 -->
+                <div class="col-md-4">
+                    <div class="apartment-card">
+                        <img th:src="@{/images/apt card2.avif}" alt="Apartment 2"> <!-- Thymeleaf src attribute -->
+                        <h5>Apartment 2</h5>
+                        <p>Location: Suburbs</p>
+                        <p>Rooms: 2</p>
+                        <a href="#" class="btn">Request More Info</a>
+                    </div>
+                </div>
+                <!-- Apartment Card 3 -->
+                <div class="col-md-4">
+                    <div class="apartment-card">
+                        <img th:src="@{/images/apt card3.webp}" alt="Apartment 3"> <!-- Thymeleaf src attribute -->
+                        <h5>Apartment 3</h5>
+                        <p>Location: Near Park</p>
+                        <p>Rooms: 4</p>
+                        <a href="#" class="btn">Request More Info</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px;">
+            <!-- Left side: Apartment Image in Triangle Shape -->
+            <div style="flex: 1; display: flex; justify-content: center;">
+                <div style="position: relative; width: 100px; height: 100px; overflow: hidden; clip-path: polygon(50% 0%, 0% 100%, 100% 100%);">
+                    <img th:src="@{/images/apt logo1.jpg}" alt="Apartment" style="object-fit: cover; width: 100%; height: 100%;"/>
+                </div>
+            </div>
+
+            <!-- Centered Links Section -->
+            <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 30px;">
+                <div>
+                    <a href="/features" style="color: white; text-decoration: none;">Features</a><br>
+                    <a href="/pricing" style="color: white; text-decoration: none;">Pricing</a><br>
+                    <a href="/contact" style="color: white; text-decoration: none;">Contact Us</a>
+                </div>
+                <div>
+                    <a href="/faqs" style="color: white; text-decoration: none;">FAQs</a><br>
+                    <a href="/terms" style="color: white; text-decoration: none;">Terms of Use</a><br>
+                    <a href="/privacy" style="color: white; text-decoration: none;">Privacy Policy</a>
+                </div>
+                <div>
+                    <a href="/careers" style="color: white; text-decoration: none;">Careers</a><br>
+                </div>
+            </div>
+
+            <!-- Right side: Social Media Icons -->
+            <div style="flex: 1; display: flex; justify-content: flex-end; gap: 30px; padding-right: 20px;">
+                <a href="https://wa.me/yourphonenumber" target="_blank" style="color: white;">
+                    <img th:src="@{/images/whatsapp logo.jpg}" alt="WhatsApp" style="width: 40px; height: 40px;">
+                </a>
+                <a href="https://facebook.com/yourpage" target="_blank" style="color: white;">
+                    <img th:src="@{/images/facebook logo.jpg}" alt="Facebook" style="width: 40px; height: 40px;">
+                </a>
+                <a href="https://instagram.com/yourprofile" target="_blank" style="color: white;">
+                    <img th:src="@{/images/instagram logo.jpg}" alt="Instagram" style="width: 40px; height: 40px;">
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px; font-size: 18px;">
+            <span style="font-family: cursive; font-weight: bold; color: #00AEEF;">Apartment</span>
+            <span style="font-weight: bold;">CONNECT</span>
+        </div>
+
+        <div style="margin-top: 10px; font-size: 14px;">
+            © 2021 Apartment Connect  All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

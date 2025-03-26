@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - ApartmentConnect</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+	<!-- Bootstrap 5 CSS -->
+	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+	<style>
+	/* Apply a light background image */
+	body {
+	   background: url('images/apt about.jpg') no-repeat center center fixed;
+	    background-size: cover;
+	    background-blend-mode:darken; /* Blend the image with a dark color for better contrast */
+
+	    font-family: Arial, sans-serif;
+	    color: #333; /* Ensures text is readable */
+	    margin: 0;
+	    padding: 0;
+	}
+
+	/* Add a semi-transparent dark overlay */
+	body::before {
+	    content: "";
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(0, 0, 0, 0.7); /* Dark transparent overlay */
+	    z-index: -1; /* Place the overlay behind the content */
+	}
+
+	header {
+	    text-align: center;
+	    padding: 20px;
+	    background: rgba(0, 0, 0, 0.7);
+	    color: white;
+	}
+
+		main {
+	    padding: 20px;
+	    text-align: center;
+	}
+
+	/* Style sections */
+	.about-section, .features, .cta {
+	    background: rgba(255, 255, 255, 0.8); /* Light background for content */
+	    padding: 20px;
+	    border-radius: 10px;
+	    margin: 20px auto;
+	    max-width: 800px;
+	}
+
+	.btn {
+	    display: inline-block;
+	    padding: 10px 20px;
+	    background: #007BFF;
+	    color: white;
+	    text-decoration: none;
+	    border-radius: 5px;
+	    margin-top: 10px;
+	}
+
+	.btn:hover {
+	    background: #0056b3;
+	}
+
+	footer {
+	    text-align: center;
+	    padding: 10px;
+	    background: rgba(0, 0, 0, 0.7);
+	    color: white;
+	}
+	</style>
+	</head>
+<body>
+
+	<!-- Navbar Include -->
+	    <div th:replace="menu :: menu"></div>
+    <header>
+        <h1>ApartmentConnect</h1>
+        
+    </header>
+
+    <main>
+        <section class="about-section">
+            <h2>About ApartmentConnect</h2>
+            <p>ApartmentConnect is a platform designed to simplify communication and management within apartment communities. Whether you are a resident, committee member, or management team, our solution helps you stay connected, handle maintenance requests, manage notices, and foster a better living experience.</p>
+        </section>
+
+        <section class="features">
+            <h2>Key Features</h2>
+            <ul>
+                <li>📢 <strong>Community Announcements</strong> – Stay updated with the latest news and notices.</li>
+                <li>🛠 <strong>Maintenance Requests</strong> – Easily report and track issues within the apartment.</li>
+                <li>📊 <strong>Resident Dashboard</strong> – View important community information at a glance.</li>
+                <li>📅 <strong>Event Management</strong> – Organize and participate in community events.</li>
+                <li>💬 <strong>Secure Messaging</strong> – Communicate with residents and management seamlessly.</li>
+            </ul>
+        </section>
+
+        <section class="cta">
+            <h2>Join the Community</h2>
+            <p>Experience hassle-free apartment living with ApartmentConnect. Sign up today and be a part of a well-managed community!</p>
+            <a href="signup.html" class="btn">Get Started</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ApartmentConnect. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
