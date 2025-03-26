@@ -22,13 +22,13 @@ public interface MaintenanceRequestService {
 
 	boolean updateMaintenanceRequest(MaintenanceRequest maintenanceRequest);
 
-<<<<<<< HEAD
+
 	long countPendingRequests();
 
 	Collection<MaintenanceRequest> getPendingRequests();
 
 	List<MaintenanceRequest> getPendingMaintenanceRequests();
-=======
+
 	List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId);
 
 	void saveRequest(MaintenanceRequest newRequest);
@@ -40,7 +40,7 @@ public interface MaintenanceRequestService {
 	boolean updateStatus(Long Id);
 
 	MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId);
->>>>>>> fffaefc7719c5f4e6311d299bf1a6f5517c1263b
+
 
 	
 }

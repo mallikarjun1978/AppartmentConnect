@@ -85,11 +85,8 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 	}
 	}
 
-<<<<<<< HEAD
-	@Override
-	public List<MaintenanceRequest> getPendingRequests() {
-        return maintenanceRepository.findByStatus("Pending");
-    }
+
+	
 
     public long countPendingRequests() {
         return maintenanceRepository.countByStatus("Pending");
@@ -100,7 +97,7 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
         // Fetch pending requests from the database using the repository
         return maintenanceRepository.findByStatus("PENDING");
     }
-=======
+
 	 @Override
 	    public List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId) {
 	        // Find all maintenance requests associated with a specific resident
@@ -142,7 +139,13 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 		    return maintenanceRepository.findTopByResidentIdOrderByCreatedAtDesc(residentId);
 		}
 
->>>>>>> fffaefc7719c5f4e6311d299bf1a6f5517c1263b
+		@Override
+		public Collection<MaintenanceRequest> getPendingRequests() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+
 	
 
 	

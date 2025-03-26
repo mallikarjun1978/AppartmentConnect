@@ -13,21 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.MaintenanceRequest;
-<<<<<<< HEAD
+
 import com.example.demo.entity.Messages;
 import com.example.demo.entity.Residents;
 import com.example.demo.service.ApartmentsService;
 import com.example.demo.service.MaintenanceRequestService;
 import com.example.demo.service.MessagesService;
-=======
-import com.example.demo.entity.Residents;
-import com.example.demo.service.MaintenanceRequestService;
->>>>>>> fffaefc7719c5f4e6311d299bf1a6f5517c1263b
+
 
 @Controller
 @RequestMapping("/front-end/admin")
 public class AdminFrontEndController {
-<<<<<<< HEAD
+
 
 	@Autowired
     private MessagesService messagesService;
@@ -65,13 +62,7 @@ public class AdminFrontEndController {
 
         return modelAndView;
 }}
-=======
+
 	
 	 
-	 @GetMapping("/adminhome")
-	    public ModelAndView login(Model model) {
-	    	ModelAndView view = new ModelAndView("adminhome");
-			return view;
-	    }
-}
->>>>>>> fffaefc7719c5f4e6311d299bf1a6f5517c1263b
+	
