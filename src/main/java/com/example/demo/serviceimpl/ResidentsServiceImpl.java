@@ -1,9 +1,12 @@
 package com.example.demo.serviceimpl;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Residents;
@@ -15,9 +18,10 @@ import com.example.demo.service.ResidentsService;
 public class ResidentsServiceImpl implements ResidentsService {
 	@Autowired
 	ResidentsRepository residentsRepository;
-
+	
 	@Override
 	public void addResidents(Residents residents) {
+		//residents.setRole("ROLE_RESIDENT");
 		residentsRepository.save(residents);
 	}
 
@@ -75,6 +79,19 @@ public class ResidentsServiceImpl implements ResidentsService {
 	        return false;
 	    }
 	}
+
+	@Override
+	 public Residents findResidentByUsername(String loggedInUserName) {
+        // Find and return the Resident entity by username
+        return residentsRepository.findByUserName(loggedInUserName);
+    }
+
+	
+	
+
+	
+
+	
 
 
 }

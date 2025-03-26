@@ -17,6 +17,8 @@ public class CustomActuatorEndpoint {
     	endPoints.put("index page", "http://localhost:8090/index");
     	endPoints.put("about page", "http://localhost:8090/about");
     	endPoints.put("contact page", "http://localhost:8090/contact");
+    	endPoints.put("maintenance_requests page", "http://localhost:8090/maintenance_requests");  //resident side
+    	endPoints.put("maintenance-requests page", "http://localhost:8090/maintenance-requests");  //admin side 
     	endPoints.put("to get appartments count", "http://localhost:8091/appartments/count");
         return endPoints;
     }

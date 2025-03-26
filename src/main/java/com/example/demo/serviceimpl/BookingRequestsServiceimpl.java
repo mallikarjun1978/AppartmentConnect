@@ -17,8 +17,9 @@ public class BookingRequestsServiceimpl implements BookingRequestsService {
     private BookingRequestsRepository bookingRequestsRepository;
 
     @Override
-    public void addbookings(BookingRequests bookings) {
-        bookingRequestsRepository.save(bookings);
+    public void addbookings(BookingRequests bookingRequest) {
+        System.out.println("Saving booking request: " + bookingRequest);
+        bookingRequestsRepository.save(bookingRequest);
     }
 
     @Override
