@@ -15,4 +15,11 @@ public interface ResidentsService {
 	Residents getResidentsById(int id);
 	boolean deleteResidents(int id);
 	boolean updateResidents(Residents residents);
+<<<<<<< HEAD
+=======
+	Residents findResidentByUsername(String loggedInUserName);
+	
+	
+
+>>>>>>> fffaefc7719c5f4e6311d299bf1a6f5517c1263b
 }

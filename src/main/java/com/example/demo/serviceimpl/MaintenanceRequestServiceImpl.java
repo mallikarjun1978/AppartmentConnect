@@ -85,6 +85,7 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 	}
 	}
 
+<<<<<<< HEAD
 	@Override
 	public List<MaintenanceRequest> getPendingRequests() {
         return maintenanceRepository.findByStatus("Pending");
@@ -99,6 +100,49 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
         // Fetch pending requests from the database using the repository
         return maintenanceRepository.findByStatus("PENDING");
     }
+=======
+	 @Override
+	    public List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId) {
+	        // Find all maintenance requests associated with a specific resident
+	        return maintenanceRepository.findByResidentId(loggedInResidentId);
+	    }
+
+	    @Override
+	    public void saveRequest(MaintenanceRequest newRequest) {
+	        // Save a new maintenance request to the repository
+	        maintenanceRepository.save(newRequest);
+	    }
+
+		@Override
+		public MaintenanceRequest findTopByOrderByCreatedAtDesc() {
+			// TODO Auto-generated method stub
+			return maintenanceRepository.findTopByOrderByCreatedAtDesc();
+		}
+
+		
+		@Override
+		 // Update the status of a maintenance request
+	    public boolean updateStatus(Long requestId) {
+	        MaintenanceRequest request = maintenanceRepository.findById(requestId).orElse(null);
+	        if (request != null) {
+	            // Toggle the status between 'Pending' and 'Completed'
+	            if ("Pending".equals(request.getStatus())) {
+	                request.setStatus("Completed");
+	            } else {
+	                request.setStatus("Pending");
+	            }
+	            maintenanceRepository.save(request);
+	            return true;
+	        }
+	        return false;
+	    }
+
+		@Override
+		public MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId) {
+		    return maintenanceRepository.findTopByResidentIdOrderByCreatedAtDesc(residentId);
+		}
+
+>>>>>>> fffaefc7719c5f4e6311d299bf1a6f5517c1263b
 	
 
 	
