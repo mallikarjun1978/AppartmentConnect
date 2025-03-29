@@ -1,5 +1,6 @@
 package com.example.demo.serviceimpl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +85,19 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 	}
 	}
 
+
+	
+
+    public long countPendingRequests() {
+        return maintenanceRepository.countByStatus("Pending");
+    }
+
+	@Override
+	public List<MaintenanceRequest> getPendingMaintenanceRequests() {
+        // Fetch pending requests from the database using the repository
+        return maintenanceRepository.findByStatus("PENDING");
+    }
+
 	 @Override
 	    public List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId) {
 	        // Find all maintenance requests associated with a specific resident
@@ -124,6 +138,13 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 		public MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId) {
 		    return maintenanceRepository.findTopByResidentIdOrderByCreatedAtDesc(residentId);
 		}
+
+		@Override
+		public Collection<MaintenanceRequest> getPendingRequests() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 
 	
 

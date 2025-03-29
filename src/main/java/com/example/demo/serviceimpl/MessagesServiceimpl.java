@@ -32,4 +32,9 @@ public class MessagesServiceimpl implements MessagesService {
 	public List<Messages> getMessagesByReceiver(Long receiverId) {
 		return messagesRepository.findByReceiverId(receiverId);
 	}
+
+	@Override
+	 public List<Messages> getLastThreeUnreadMessages(Long receiverId) {
+        return messagesRepository.findTop3ByReceiverIdOrderByCreatedAtDesc(receiverId);
+    }
 }
