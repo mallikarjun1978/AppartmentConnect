@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/front-end/apartments")
-public class AvaliableFrontendAppartments {
+public class AvaliableFrontendAppartmentsController {
 
     @Autowired
     private ApartmentsService apartmentService;

@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 public class ApartmentsController {
 
 	@Autowired
@@ -33,16 +33,14 @@ public class ApartmentsController {
 
 	@GetMapping("/apartments/{id}")
 	public ResponseEntity<Apartments> getApartmentById(@PathVariable int id) {
-	    Optional<Apartments> apartmentOptional = apartmentsService.getApartmentsById(id);
+		Optional<Apartments> apartmentOptional = apartmentsService.getApartmentsById(id);
 
-	    if (apartmentOptional.isPresent()) {
-	        return new ResponseEntity<>(apartmentOptional.get(), HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
-	    }
+		if (apartmentOptional.isPresent()) {
+			return new ResponseEntity<>(apartmentOptional.get(), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
-
-	 
 
 	@PostMapping("/apartments")
 	public ResponseEntity<String> addApartment(@RequestBody Apartments apartments) {
@@ -89,22 +87,34 @@ public class ApartmentsController {
 	}
 
 	@GetMapping("/viewapartments")
-	public String viewApartments(Model model) {
+	public ModelAndView viewApartments(Model model) {
+		System.out.println("ok1111");
 		List<Apartments> apartmentsList = apartmentsService.getAllApartments();
+		for (Apartments app : apartmentsList) {
+			System.out.println(app);
+		}
 		model.addAttribute("apartments", apartmentsList);
-		return "viewapartments";
+		ModelAndView view = new ModelAndView("viewapartments");
+		return view;
 	}
 
 	@GetMapping("/editapartment/{id}")
-	public String editApartment(@PathVariable int id, Model model) {
-		Optional<Apartments> apartment = apartmentsService.getApartmentsById(id);
-		if (apartment.isPresent()) {
-			model.addAttribute("apartment", apartment.get());
-			return "editapartment";
-		} else {
-			return "redirect:/viewapartments";
-		}
+	public ModelAndView editApartment(@PathVariable int id, Model model) {
+	    // Retrieve the apartment by id
+	    Optional<Apartments> apartment = apartmentsService.getApartmentsById(id);
+
+	    if (apartment.isPresent()) {
+	        // If the apartment exists, add it to the model
+	        model.addAttribute("apartment", apartment.get());  // Use "apartment" instead of "apartments" to match the model name
+
+	        // Return a ModelAndView with the view name and model
+	        return new ModelAndView("editapartment"); // The view name (editapartment.jsp or editapartment.html)
+	    } else {
+	        // If the apartment doesn't exist, redirect to the list of apartments
+	        return new ModelAndView("redirect:/viewapartments");
+	    }
 	}
+
 
 	@PostMapping("/updateapartment")
 	public ModelAndView updateApartment(@ModelAttribute Apartments apartment) {
