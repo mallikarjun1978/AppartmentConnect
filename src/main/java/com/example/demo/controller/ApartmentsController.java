@@ -20,7 +20,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1")
 public class ApartmentsController {
 
 	@Autowired
@@ -68,6 +69,8 @@ public class ApartmentsController {
 		}
 		return new ResponseEntity<>("Apartment deleted successfully", HttpStatus.OK);
 	}
+	
+	
 
 	@GetMapping("/addapartment")
 	public ModelAndView addProduct(Model model) {
