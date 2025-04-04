@@ -13,4 +13,6 @@ public interface MessagesService {
 	List<Messages> getMessagesBySender(Long senderId);
 
 	List<Messages> getMessagesByReceiver(Long receiverId);
+
+	List<Messages> getLastThreeUnreadMessages(Long receiverId);
 }

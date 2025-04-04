@@ -81,4 +81,21 @@ public class ApartmentsServiceImpl implements ApartmentsService{
 	}
 	}
 
+	@Override
+	public long getTotalApartments() {
+        // Fetching the total number of apartments from the database
+        return apartmentsRepository.count();
+    }
+
+    /**
+     * Method to get the count of available apartments.
+     * @return The count of available apartments (isAvailable = true).
+     */
+	
+	@Override
+    public long getAvailableApartments() {
+        // Custom query method in the repository to count apartments where isAvailable = true
+        return apartmentsRepository.countByIsAvailableTrue();
+    }
+
 }

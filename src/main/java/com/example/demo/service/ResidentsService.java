@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+
 import com.example.demo.entity.Residents;
 
 @Service
@@ -14,6 +15,8 @@ public interface ResidentsService {
 	Residents getResidentsById(int id);
 	boolean deleteResidents(int id);
 	boolean updateResidents(Residents residents);
+
+	Residents findResidentByUsername(String loggedInUserName);
 	
 	
 

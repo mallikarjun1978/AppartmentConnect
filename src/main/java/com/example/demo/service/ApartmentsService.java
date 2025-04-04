@@ -14,6 +14,7 @@ public interface ApartmentsService {
 	Optional<Apartments> getApartmentsById(int Id);
 	boolean deleteApartments(int Id);
 	boolean updateApartments(Apartments apartments);
+	long getTotalApartments();
+	long getAvailableApartments();
 	
-
 }

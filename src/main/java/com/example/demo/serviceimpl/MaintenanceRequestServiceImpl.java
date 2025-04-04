@@ -1,5 +1,6 @@
 package com.example.demo.serviceimpl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +84,67 @@ public  class MaintenanceRequestServiceImpl implements MaintenanceRequestService
 		return false;
 	}
 	}
+
+
+	
+
+    public long countPendingRequests() {
+        return maintenanceRepository.countByStatus("Pending");
+    }
+
+	@Override
+	public List<MaintenanceRequest> getPendingMaintenanceRequests() {
+        // Fetch pending requests from the database using the repository
+        return maintenanceRepository.findByStatus("PENDING");
+    }
+
+	 @Override
+	    public List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId) {
+	        // Find all maintenance requests associated with a specific resident
+	        return maintenanceRepository.findByResidentId(loggedInResidentId);
+	    }
+
+	    @Override
+	    public void saveRequest(MaintenanceRequest newRequest) {
+	        // Save a new maintenance request to the repository
+	        maintenanceRepository.save(newRequest);
+	    }
+
+		@Override
+		public MaintenanceRequest findTopByOrderByCreatedAtDesc() {
+			// TODO Auto-generated method stub
+			return maintenanceRepository.findTopByOrderByCreatedAtDesc();
+		}
+
+		
+		@Override
+		 // Update the status of a maintenance request
+	    public boolean updateStatus(Long requestId) {
+	        MaintenanceRequest request = maintenanceRepository.findById(requestId).orElse(null);
+	        if (request != null) {
+	            // Toggle the status between 'Pending' and 'Completed'
+	            if ("Pending".equals(request.getStatus())) {
+	                request.setStatus("Completed");
+	            } else {
+	                request.setStatus("Pending");
+	            }
+	            maintenanceRepository.save(request);
+	            return true;
+	        }
+	        return false;
+	    }
+
+		@Override
+		public MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId) {
+		    return maintenanceRepository.findTopByResidentIdOrderByCreatedAtDesc(residentId);
+		}
+
+		@Override
+		public Collection<MaintenanceRequest> getPendingRequests() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 
 	
 

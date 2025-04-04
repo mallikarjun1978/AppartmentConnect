@@ -8,4 +8,6 @@ import com.example.demo.entity.Apartments;
 @Service
 public interface ApartmentsRepository extends JpaRepository<Apartments, Integer> {
 
+	long countByIsAvailableTrue();
+
 }
