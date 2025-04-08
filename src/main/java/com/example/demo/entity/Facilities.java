@@ -32,7 +32,7 @@ public class Facilities {
     private int maxCapacity;
 
     @Column(name = "is_active", columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private boolean isActive = true;
+    private boolean isActive;
 
     @Column(name = "created_at", updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
