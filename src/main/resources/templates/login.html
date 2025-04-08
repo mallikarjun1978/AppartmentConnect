@@ -68,6 +68,9 @@
     </style>
 </head>
 <body>
+	
+	<!-- Navbar Include -->
+	    <div th:replace="menu :: menu"></div>
     <div class="login-container">
         <h2 class="text-primary">APTCONNECT</h2>
         <form th:action="@{/login}" method="post">

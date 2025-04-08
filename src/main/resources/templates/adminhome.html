@@ -13,16 +13,16 @@
     <style>
         /* General body styling */
         body {
-            background-color: #f0f2f5; /* Slightly lighter gray for the background */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+            background: linear-gradient(135deg, #f0f2f5, #e2e3e5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
         }
 
         /* Navbar styling */
         .navbar {
-            background-color: #004085; /* Deep blue background */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the navbar */
+            background: linear-gradient(45deg, #004085, #0069d9);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .navbar .navbar-brand {
@@ -45,7 +45,7 @@
 
         /* Main content area */
         main {
-            background-color: white;
+            background-color: #ffffff;
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             padding: 30px;
@@ -58,6 +58,7 @@
             text-align: center;
             font-size: 3rem;
             margin-bottom: 30px;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
         }
 
         /* Card styling */
@@ -68,13 +69,13 @@
         }
 
         .card:hover {
-            transform: translateY(-5px); /* Lift effect on hover */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
 
         .card-body {
             padding: 25px;
-			background-color: #d1e7fd;
+            background: linear-gradient(145deg, #d1e7fd, #a9c6e2);
         }
 
         .card-title {
@@ -106,14 +107,37 @@
 
         /* Button styling */
         .btn-custom {
-            background-color: #004085;
+            background: linear-gradient(135deg, #004085, #0069d9);
             color: white;
             border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
 
         .btn-custom:hover {
-            background-color: #0056b3;
+            background: linear-gradient(135deg, #0056b3, #004085);
+            transform: scale(1.05);
             color: #e9ecef;
+        }
+
+        /* Make the Messages and Pending Requests card scrollable */
+        .scrollable-card {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* Badge for Pending Requests */
+        .badge.bg-warning {
+            color: #fff;
+            background-color: #ffc107;
+            font-size: 1rem;
+        }
+
+        /* Styling for the card content */
+        .card-body {
+            padding: 25px;
+            background-color: #f8f9fa;
         }
 
         /* Responsive adjustments */
@@ -121,15 +145,29 @@
             .card {
                 margin-bottom: 20px;
             }
+
             h1 {
                 font-size: 2.5rem;
-				text-shadow: 3px 3px 10px skyblue; /* Sky blue text shadow */
             }
         }
 
         /* Spacing between cards */
         .card-deck .card {
             margin-bottom: 20px;
+        }
+
+        /* Add hover effect to badges and cards */
+        .badge:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .card-body a {
+            transition: color 0.3s ease;
+        }
+
+        .card-body a:hover {
+            color: #0056b3;
         }
     </style>
 </head>
@@ -156,10 +194,25 @@
             <!-- Pending Maintenance Requests Section -->
             <section class="col">
                 <div class="card shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body scrollable-card">
                         <h2 class="card-title">Pending Maintenance Requests</h2>
-                        <p class="card-text">Pending Requests: <span th:text="${pendingMaintenanceRequests}"></span></p>
-                        <a href="#" th:href="@{/admin/maintenance-requests}" class="btn btn-custom">View Details</a>
+
+                        <!-- Loop through the pending maintenance requests -->
+                        <div th:each="request : ${pendingMaintenanceRequests}">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <!-- Display Request Title (if applicable) -->
+                                <div>
+                                    <strong th:text="${request.requestDescription}"></strong><br>
+                                    <!-- Display Request Creation Date -->
+                                    <small th:text="${#dates.format(request.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+                                </div>
+                                <!-- Add a status badge or icon for the request -->
+                                <span class="badge bg-warning">Pending</span>
+                            </div>
+                        </div>
+
+                        <!-- Link to view all maintenance requests -->
+                        <a href="#" th:href="@{/admin/maintenance-requests}" class="btn btn-custom w-100 mt-3">View All Requests</a>
                     </div>
                 </div>
             </section>
@@ -167,9 +220,20 @@
             <!-- Unread Messages Section -->
             <section class="col">
                 <div class="card shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body scrollable-card">
                         <h2 class="card-title">Unread Messages</h2>
-                        <p class="card-text">Unread Messages: <span th:text="${unreadMessages}"></span></p>
+                        <!-- Loop through the last three messages -->
+                        <div th:each="message : ${lastThreeMessages}">
+                            <div class="mb-3">
+                                <!-- Display message subject -->
+                                <strong th:text="${message.subject}"></strong><br>
+                                <!-- Display abbreviated message (to avoid overflow) -->
+                                <span th:text="${#strings.abbreviate(message.message, 150)}"></span><br>
+                                <!-- Display message createdAt (formatted for better readability) -->
+                                <small th:text="${message.createdAt}"></small>
+                            </div>
+                        </div>
+                        <!-- Link to view all messages -->
                         <a href="#" th:href="@{/admin/messages}" class="btn btn-custom">Check Messages</a>
                     </div>
                 </div>

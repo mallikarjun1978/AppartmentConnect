@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.Collection;
 import  java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -21,6 +22,13 @@ public interface MaintenanceRequestService {
 
 	boolean updateMaintenanceRequest(MaintenanceRequest maintenanceRequest);
 
+
+	long countPendingRequests();
+
+	Collection<MaintenanceRequest> getPendingRequests();
+
+	List<MaintenanceRequest> getPendingMaintenanceRequests();
+
 	List<MaintenanceRequest> getRequestsByResidentId(int loggedInResidentId);
 
 	void saveRequest(MaintenanceRequest newRequest);
@@ -32,6 +40,7 @@ public interface MaintenanceRequestService {
 	boolean updateStatus(Long Id);
 
 	MaintenanceRequest findTopByResidentIdOrderByCreatedAtDesc(int residentId);
+
 
 	
 }
