@@ -25,7 +25,7 @@ public class AppartmentImagesController {
     }
 
     // Get an image by ID
-    @GetMapping("/allappartmentimages/{id}")
+    @GetMapping("/getappartmentimagesbyid/{id}")
     public ResponseEntity<AppartmentImages> getImageById(@PathVariable int id) {
         Optional<AppartmentImages> image = repository.findById(id);
         return image.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -39,7 +39,7 @@ public class AppartmentImagesController {
     }
 
     // Delete an image by ID
-    @DeleteMapping("/deleteappartmentimages/{id}")
+    @DeleteMapping("/deleteappartmentimagesbyid/{id}")
     public ResponseEntity<Void> deleteImage(@PathVariable int id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
@@ -50,7 +50,7 @@ public class AppartmentImagesController {
     }
 
     // Update an apartment image by ID
-    @PutMapping("/updateappartmentimages/{id}")
+    @PutMapping("/updateappartmentimagesbyid/{id}")
     public ResponseEntity<AppartmentImages> updateImage(
             @PathVariable int id, @RequestBody AppartmentImages updatedImage) {
         Optional<AppartmentImages> existingImageOptional = repository.findById(id);
@@ -63,5 +63,8 @@ public class AppartmentImagesController {
         } else {
             return ResponseEntity.notFound().build();
         }
+        
+        
+        
     }
 }
