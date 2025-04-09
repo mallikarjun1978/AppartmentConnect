@@ -13,4 +13,6 @@ public interface MessagesRepository extends JpaRepository<Messages, Long> {
 	List<Messages> findByReceiverId(Long receiverId);
 
 	List<Messages> findTop3ByReceiverIdOrderByCreatedAtDesc(Long receiverId);
+	
+	List<Messages> findAllByOrderByCreatedAtDesc();
 }
