@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +24,8 @@ public class Notifications {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Integer id;
+    @Column(name = "title", nullable = false, length = 255)
+    private String title;
 
     @Column(name = "message", nullable = false, length = 255)
     private String message;
@@ -31,6 +35,8 @@ public class Notifications {
 
     @Column(name = "timestamp", nullable = false, updatable = false)
     private LocalDateTime timestamp;
+   
+
 
    
 }

@@ -6,6 +6,7 @@ import com.example.demo.entity.Notifications;
 
 public interface NotificationService {
 	List<Notifications> getAllNotifications();
-	Notifications createNotification(Notifications notifications);
+	Notifications sendNotification(Notifications notifications);
+	List<Notifications>getLast5NOtifications();
 	void markAsRead(Integer id);
 }

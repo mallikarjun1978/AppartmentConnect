@@ -1,143 +1,144 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Apartments;
-import com.example.demo.service.ApartmentsService;
 import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.repository.ApartmentsRepository;
+import com.example.demo.serviceimpl.ApartmentsServiceImpl;
+
+import jakarta.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/v1")
+@Controller
 public class ApartmentsController {
 
-	@Autowired
-	private ApartmentsService apartmentsService;
+    @Autowired
+    private ApartmentsServiceImpl apartmentsService;
+    
+    
+   
 
-	@GetMapping("/apartments")
-	public List<Apartments> getAllApartments() {
-		return apartmentsService.getAllApartments();
-	}
 
-	@GetMapping("/apartments/{id}")
-	public ResponseEntity<Apartments> getApartmentById(@PathVariable int id) {
-	    Optional<Apartments> apartmentOptional = apartmentsService.getApartmentsById(id);
+    // ========== REST APIs ==========
 
-	    if (apartmentOptional.isPresent()) {
-	        return new ResponseEntity<>(apartmentOptional.get(), HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND); 
-	    }
-	}
+    @GetMapping("/apartments")
+    public List<Apartments> getAllApartments() {
+        return apartmentsService.getAllApartments();
+    }
 
-	 
+    @GetMapping("/apartments/{id}")
+    public ResponseEntity<Apartments> getApartmentById(@PathVariable int id) {
+        return apartmentsService.getApartmentsById(id)
+                .map(apartment -> new ResponseEntity<>(apartment, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
-	@PostMapping("/apartments")
-	public ResponseEntity<String> addApartment(@RequestBody Apartments apartments) {
-		apartmentsService.addApartments(apartments);
-		return new ResponseEntity<>("Apartment added successfully", HttpStatus.CREATED);
-	}
+    @PostMapping("/apartments")
+    public ResponseEntity<String> addApartment(
+            @RequestPart("apartment") Apartments apartment,
+            @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
+        try {
+            apartmentsService.addApartments(apartment, imageFile);
+            return new ResponseEntity<>("Apartment added successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to add apartment: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	@PutMapping("/apartments/{id}")
-	public ResponseEntity<Boolean> updateApartments(@PathVariable("id") int id, @RequestBody Apartments apartments) {
-		boolean flag;
-		if (apartmentsService.isApartmentsExist(id)) {
-			flag = apartmentsService.updateApartments(apartments);
-		} else {
-			flag = false;
-		}
-		return new ResponseEntity<>(flag, HttpStatus.OK);
-	}
+    @PutMapping("/apartments/{id}")
+    public ResponseEntity<String> updateApartment(
+            @PathVariable int id,
+            @RequestPart("apartment") Apartments apartment,
+            @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
+        try {
+            apartment.setId(id);
+            boolean updated = apartmentsService.updateApartmentsWithImage(apartment, imageFile);
+            if (updated) {
+                return new ResponseEntity<>("Apartment updated successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Apartment not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed to update apartment: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	@DeleteMapping("/apartments/{id}")
-	public ResponseEntity<String> deleteApartment(@PathVariable int id) {
-		if (!apartmentsService.deleteApartments(id)) {
-			throw new ResourceNotFoundException("Apartment", "Id", id);
-		}
-		return new ResponseEntity<>("Apartment deleted successfully", HttpStatus.OK);
-	}
-	
-	
+    @DeleteMapping("/apartments/{id}")
+    public ResponseEntity<String> deleteApartment(@PathVariable int id) {
+        if (!apartmentsService.deleteApartments(id)) {
+            throw new ResourceNotFoundException("Apartment", "Id", id);
+        }
+        return new ResponseEntity<>("Apartment deleted successfully", HttpStatus.OK);
+    }
 
-	@GetMapping("/addapartment")
-	public ModelAndView addProduct(Model model) {
-		Apartments apartments = new Apartments();
-		model.addAttribute("apartments", apartments);
-		ModelAndView view = new ModelAndView("addapartment");
-		return view;
-	}
+    // ========== Web MVC Views ==========
 
-	@PostMapping("/addapartments")
-	public String addApartment(@ModelAttribute Apartments apartment, Model model) {
-		try {
-			apartmentsService.addApartments(apartment);
-			model.addAttribute("successMessage", "Apartment added successfully!");
-		} catch (Exception e) {
-			model.addAttribute("errorMessage", "Failed to add apartment. Please try again.");
-		}
-		return "addapartment";
-	}
+    @GetMapping("/addapartment")
+    public String showAddApartmentForm(Model model) {
+        model.addAttribute("apartments", new Apartments());
+        return "addapartment";
+    }
 
-	@GetMapping("/viewapartments")
-	public String viewApartments(Model model) {
-		List<Apartments> apartmentsList = apartmentsService.getAllApartments();
-		model.addAttribute("apartments", apartmentsList);
-		return "viewapartments";
-	}
+    @PostMapping("/addapartments")
+    public String addApartmentWeb(@ModelAttribute("apartments") Apartments apartment,
+                                  @RequestParam("imageFile") MultipartFile imageFile,
+                                  Model model) {
+        try {
+            apartmentsService.addApartments(apartment, imageFile);
+            model.addAttribute("successMessage", "Apartment added successfully!");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Error adding apartment: " + e.getMessage());
+        }
+        return "addapartment";
+    }
 
-	@GetMapping("/editapartment/{id}")
-	public String editApartment(@PathVariable int id, Model model) {
-		Optional<Apartments> apartment = apartmentsService.getApartmentsById(id);
-		if (apartment.isPresent()) {
-			model.addAttribute("apartment", apartment.get());
-			return "editapartment";
-		} else {
-			return "redirect:/viewapartments";
-		}
-	}
+    @GetMapping("/viewapartments")
+    public String viewApartments(Model model) {
+        model.addAttribute("apartments", apartmentsService.getAllApartments());
+        return "viewapartments";
+    }
 
-	@PostMapping("/updateapartment")
-	public ModelAndView updateApartment(@ModelAttribute Apartments apartment) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/viewapartments");
-		Optional<Apartments> existingApartmentOptional = apartmentsService.getApartmentsById(apartment.getId());
+    @GetMapping("/editapartment/{id}")
+    public String editApartment(@PathVariable int id, Model model) {
+        Optional<Apartments> apartment = apartmentsService.getApartmentsById(id);
+        if (apartment.isPresent()) {
+            model.addAttribute("apartment", apartment.get());
+            return "editapartment";
+        } else {
+            return "redirect:/viewapartments";
+        }
+    }
 
-		if (existingApartmentOptional.isPresent()) {
-			Apartments existingApartment = existingApartmentOptional.get();
+    @PostMapping("/updateapartment")
+    public String updateApartmentWeb(@ModelAttribute Apartments apartment,
+                                     @RequestParam("imageFile") MultipartFile imageFile,
+                                     Model model) {
+        try {
+            apartmentsService.updateApartmentsWithImage(apartment, imageFile);
+            model.addAttribute("successMessage", "Apartment updated successfully!");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Error updating apartment: " + e.getMessage());
+        }
+        return "redirect:/viewapartments";
+    }
 
-			existingApartment.setName(apartment.getName());
-			existingApartment.setLocation(apartment.getLocation());
-			existingApartment.setPrice(apartment.getPrice());
-			existingApartment.setIsAvailable(apartment.getIsAvailable());
-			existingApartment.setDescription(apartment.getDescription());
-			existingApartment.setCreatedAt(apartment.getCreatedAt());
-			apartmentsService.updateApartments(existingApartment);
-		} else {
-			System.out.println("Apartment with ID " + apartment.getId() + " not found.");
-		}
+    @GetMapping("/deleteapartment/{id}")
+    public String deleteApartmentWeb(@PathVariable int id) {
+        apartmentsService.deleteApartments(id);
+        return "redirect:/viewapartments";
+        
+       
 
-		return modelAndView;
-	}
-
-	@GetMapping("/deleteapartment/{id}")
-	public ModelAndView deleteApartments(@PathVariable int id) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/viewapartments");
-
-		apartmentsService.deleteApartments(id);
-
-		return modelAndView;
-	}
-
+    }
 }

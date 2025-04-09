@@ -1,111 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+	<meta charset="UTF-8">
+	<title>Admin Dashboard</title>
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap 5 CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+	<!-- Font Awesome for icons -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
-    <style>
-        /* Custom dark blue navbar */
-        .navbar {
-            background-color: royalblue !important; /* Dark blue background */
-        }
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+	<style>
+		/* Custom dark blue navbar */
+		.navbar {
+			background-color: royalblue !important;
+			/* Dark blue background */
+		}
 
-        /* Navbar links color: white */
-        .navbar-nav .nav-item .nav-link {
-            color: white !important; /* White text */
-        }
+		/* Navbar links color: white */
+		.navbar-nav .nav-item .nav-link {
+			color: white !important;
+			/* White text */
+		}
 
-        /* Navbar links hover effect */
-        .navbar-nav .nav-item .nav-link:hover {
-            color: #d1e7fd !important; /* Light blue color on hover */
-            text-decoration: underline; /* Optional: add underline on hover */
-        }
+		/* Navbar links hover effect */
+		.navbar-nav .nav-item .nav-link:hover {
+			color: #d1e7fd !important;
+			/* Light blue color on hover */
+			text-decoration: underline;
+			/* Optional: add underline on hover */
+		}
 
-        /* Adjusting navbar toggler icon color */
-        .navbar .navbar-toggler-icon {
-            background-color: white; /* White color for the toggler icon */
-        }
+		/* Adjusting navbar toggler icon color */
+		.navbar .navbar-toggler-icon {
+			background-color: white;
+			/* White color for the toggler icon */
+		}
 
-        /* Optional: add some space between icons and text */
-        .nav-link i {
-            margin-right: 8px;
-        }
-		.navbar-brand{
+		/* Optional: add some space between icons and text */
+		.nav-link i {
+			margin-right: 8px;
+		}
+
+		.navbar-brand {
 			color: white;
 		}
-		
-    </style>
+	</style>
 </head>
+
 <body>
 
-    <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin Dashboard</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/front-end/admin/adminhome}">
-                            <i class="fas fa-home"></i> Home
-                        </a>
-                    </li>
+	<!-- Bootstrap Navbar -->
+	<nav class="navbar navbar-expand-lg">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Admin Dashboard</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/front-end/admin/adminhome}">
+							<i class="fas fa-home"></i> Home
+						</a>
+					</li>
 					<li class="nav-item dropdown">
-					    <a class="nav-link dropdown-toggle" href="#" id="manageApartmentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-					        <i class="fas fa-building"></i> Manage Apartments
-					    </a>
-					    <ul class="dropdown-menu" aria-labelledby="manageApartmentsDropdown">
-					        <li><a class="dropdown-item" th:href="@{/addapartment}">Add Apartments</a></li>
-					        <li><a class="dropdown-item" th:href="@{/viewapartments}">View Apartments</a></li>
-					    </ul>
+						<a class="nav-link dropdown-toggle" href="#" id="manageApartmentsDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-building"></i> Manage Apartments
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="manageApartmentsDropdown">
+							<li><a class="dropdown-item" th:href="@{/addapartment}">Add Apartments</a></li>
+							<li><a class="dropdown-item" th:href="@{/viewapartments}">View Apartments</a></li>
+						</ul>
 					</li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/residents}">
-                            <i class="fas fa-users"></i> Residents List
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/maintenance-requests}">
-                            <i class="fas fa-wrench"></i> Maintenance Requests
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/admin/messages}">
-                            <i class="fas fa-envelope"></i> Messages
-                        </a>
-                    </li>
-					<li class="nav-item dropdown">
-										    <a class="nav-link dropdown-toggle" href="#" id="manageApartmentsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										        <i class="fas fa-building"></i> Facilities
-										    </a>
-										    <ul class="dropdown-menu" aria-labelledby="manageApartmentsDropdown">
-										        <li><a class="dropdown-item" th:href="@{/add_facilities}">Add Facilities</a></li>
-										        <li><a class="dropdown-item" th:href="@{/view_facilities}">View Facilities</a></li>
-										    </ul>
-										</li>
 					<li class="nav-item">
-					                        <a class="nav-link" th:href="@{/index}">
-					                            <i class="fas fa-chart-line"></i> Logout
-					                        </a>
-					                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+						<a class="nav-link" th:href="@{/admin/residents}">
+							<i class="fas fa-users"></i> Residents List
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/maintenance-requests}">
+							<i class="fas fa-wrench"></i> Maintenance Requests
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/admin/messages}">
+							<i class="fas fa-envelope"></i> Messages
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/sendnotification}">
+							<i class="fas fa-envelope"></i> Notifications
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="manageApartmentsDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="fas fa-building"></i> Facilities
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="manageApartmentsDropdown">
+							<li><a class="dropdown-item" th:href="@{/add_facilities}">Add Facilities</a></li>
+							<li><a class="dropdown-item" th:href="@{/view_facilities}">View Facilities</a></li>
+						</ul>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" th:href="@{/index}">
+							<i class="fas fa-chart-line"></i> Logout
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 
-    <!-- Bootstrap 5 JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+	<!-- Bootstrap 5 JS and Popper.js -->
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>

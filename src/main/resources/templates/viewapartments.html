@@ -5,7 +5,6 @@
     <title>View Apartments</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        /* Background Gradient with Image */
         body {
             background: linear-gradient(to right, rgba(255, 126, 95, 0.7), rgba(254, 180, 123, 0.7), rgba(134, 168, 231, 0.7), rgba(127, 127, 213, 0.7)),
                         url('https://source.unsplash.com/1600x900/?apartment') no-repeat center center fixed;
@@ -40,7 +39,6 @@
             font-size: 1rem;
         }
 
-        /* Button Styles */
         .btn {
             font-weight: bold;
             border-radius: 20px;
@@ -66,6 +64,22 @@
             background-color: #c82333;
             transform: scale(1.1);
         }
+
+		.apartment-img {
+		    height: 200px;
+		    object-fit: cover;
+		    width: 100%;
+		    border: 2px solid #000000; 
+		    border-radius: 10px;       
+		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); 
+		    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+		}
+
+		.apartment-img:hover {
+		    transform: scale(1.03);
+		    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+		}
+
     </style>
 </head>
 <body>
@@ -75,6 +89,12 @@
             <!-- Loop through apartments dynamically -->
             <div class="col-md-4 mb-4" th:each="apartment : ${apartments}">
                 <div class="card bg-light text-dark">
+                    <!-- Display image safely without duplicating /uploads/ -->
+                    <img th:if="${apartment.imageUrl}" 
+                         th:src="@{${apartment.imageUrl}}" 
+                         alt="Apartment Image" 
+                         class="apartment-img" />
+                    
                     <div class="card-body">
                         <h5 class="card-title" th:text="${apartment.name}">Apartment Name</h5>
                         <p class="card-text"><strong>Location:</strong> <span th:text="${apartment.location}"></span></p>
@@ -86,9 +106,9 @@
                         </p>
                         <p class="card-text"><strong>Description:</strong> <span th:text="${apartment.description}"></span></p>
                         <p class="card-text"><strong>Created At:</strong> <span th:text="${apartment.createdAt}"></span></p>
-                        
-                        <!-- Buttons for Edit and Delete -->
-                        <div class="d-flex justify-content-between">
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-between mt-3">
                             <a th:href="@{/editapartment/{id}(id=${apartment.id})}" class="btn btn-edit w-45">Edit</a>
                             <a th:href="@{/deleteapartment/{id}(id=${apartment.id})}" class="btn btn-delete w-45" onclick="return confirmDelete();">Delete</a>
                         </div>
@@ -98,10 +118,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Delete Confirmation Script -->
     <script>
         function confirmDelete() {
             return confirm("Are you sure you want to delete this apartment?");
