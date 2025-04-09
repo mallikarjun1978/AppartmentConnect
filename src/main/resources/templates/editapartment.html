@@ -30,6 +30,14 @@
 			font-weight: bold;
 			color: #333;
 		}
+
+		.current-img {
+			width: 100%;
+			height: auto;
+			border: 1px solid #ccc;
+			border-radius: 10px;
+			margin-bottom: 10px;
+		}
 	</style>
 </head>
 
@@ -40,7 +48,7 @@
 				<div class="card">
 					<div class="card-header">Edit Apartment</div>
 
-					<form th:action="@{/updateapartment}" method="post" th:object="${apartment}">
+					<form th:action="@{/updateapartment}" method="post" th:object="${apartment}" enctype="multipart/form-data">
 						<input type="hidden" th:field="*{id}">
 
 						<div class="mb-3">
@@ -76,16 +84,26 @@
 							<input type="datetime-local" class="form-control" th:field="*{createdAt}" required>
 						</div>
 
+						<!-- Show current image if exists -->
+						<div class="mb-3" th:if="${apartment.imageUrl}">
+							<label class="form-label">Current Image:</label>
+							<img th:src="@{${apartment.imageUrl}}" alt="Apartment Image" class="current-img">
+						</div>
+
+						<!-- New upload -->
+						<div class="mb-3">
+							<label class="form-label">Upload New Image:</label>
+							<input type="file" class="form-control" name="imageFile">
+						</div>
+
 						<button type="submit" class="btn btn-success w-100">Update Apartment</button>
 					</form>
 
-
 					<a href="/" class="btn btn-secondary w-100 mt-3">Cancel</a>
+					
 					<div class="card-body">
-						<!-- Success/Error Messages -->
 						<div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 						<div th:if="${errorMessage}" class="alert alert-danger" th:text="${errorMessage}"></div>
-
 					</div>
 				</div>
 			</div>

@@ -13,4 +13,6 @@ public interface NotificationRepository extends JpaRepository<Notifications, Lon
     List<Notifications> findByIsReadFalse();
 
 	Optional<Notifications> findById(Integer id);
+
+	List<Notifications> findTop5ByOrderByTimestampDesc();
 }
