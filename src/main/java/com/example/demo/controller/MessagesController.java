@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Messages;
+import com.example.demo.repository.MessagesRepository;
 import com.example.demo.service.MessagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/messages")
 public class MessagesController {
+	
+	@Autowired
+	private MessagesRepository repository;
 
 	private final MessagesService messagesService;
 
@@ -34,4 +38,10 @@ public class MessagesController {
 	public ResponseEntity<List<Messages>> getMessagesByReceiver(@PathVariable Long receiverId) {
 		return ResponseEntity.ok(messagesService.getMessagesByReceiver(receiverId));
 	}
+	
+	@GetMapping("/admin/view")
+	public ResponseEntity<List<Messages>> getAllMessages(){
+		return ResponseEntity.ok(repository.findAllByOrderByCreatedAtDesc());
+	}
+	
 }
