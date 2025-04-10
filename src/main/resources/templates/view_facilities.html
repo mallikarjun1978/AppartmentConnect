@@ -219,15 +219,20 @@
 			$('#editForm').on('submit', function (e) {
 			    e.preventDefault();
 			    const facilityId = $('#editFacilityId').val();
-			    const updatedFacility = {
-			        facilityId: facilityId,
-			        facilityName: $('#facilityName').val(),
-			        description: $('#facilityDescription').val(),
-			        availableTime: $('#facilityTime').val(),
-			        maxCapacity: parseInt($('#maxCapacity').val()),
-			        isActive: $('#facilityStatus').is(':checked') // Ensure this is captured correctly
-			    };
+				const isActive = $('#facilityStatus').is(':checked') ? true : false;
+				const updatedFacility = {
+				    facilityId: facilityId,
+				    facilityName: $('#facilityName').val(),
+				    description: $('#facilityDescription').val(),
+				    availableTime: $('#facilityTime').val(),
+				    maxCapacity: parseInt($('#maxCapacity').val()),
+				    isActive: $('#facilityStatus').is(':checked')
+					
+				};
 
+				console.log('Checkbox checked:', $('#facilityStatus').is(':checked'));
+				console.log('updatedFacility', updatedFacility);
+				
 			    $.ajax({
 			        url: `/edit/${facilityId}`, 
 			        type: 'POST',

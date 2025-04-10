@@ -1,15 +1,141 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Apartment Listings</title>
+    <meta charset="UTF-8">
+    <title>Available Apartments</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<<<<<<< HEAD
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+=======
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(to right, rgba(255, 126, 95, 0.7), rgba(254, 180, 123, 0.7), rgba(134, 168, 231, 0.7), rgba(127, 127, 213, 0.7)),
+                        url('https://source.unsplash.com/1600x900/?apartment') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .container {
+            margin-top: 50px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 1rem;
+        }
+
+        .btn {
+            font-weight: bold;
+            border-radius: 20px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .btn-book {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-book:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .apartment-img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .apartment-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Include resident navigation -->
+    <div th:insert="~{residentMenu :: nav}"></div>
+
+    <div class="container">
+        <h2 class="text-center mb-4">Available Apartments</h2>
+
+        <!-- Success Message -->
+        <div th:if="${message}" class="alert alert-success" role="alert">
+            <span th:text="${message}"></span>
+        </div>
+
+        <div class="row">
+            <!-- Loop through apartments -->
+            <div class="col-md-4 mb-4" th:each="apartment : ${apartments}">
+                <div class="card bg-light text-dark">
+                    <img th:if="${apartment.imageUrl}" 
+                         th:src="@{${apartment.imageUrl}}" 
+                         alt="Apartment Image" 
+                         class="apartment-img" />
+
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${apartment.name}">Apartment Name</h5>
+                        <p class="card-text"><strong>Location:</strong> <span th:text="${apartment.location}"></span></p>
+                        <p class="card-text"><strong>Price:</strong> ₹<span th:text="${apartment.price}"></span></p>
+                        <p class="card-text"><strong>Status:</strong>
+                            <span th:if="${apartment.isAvailable}" class="text-success">Available</span>
+                            <span th:unless="${apartment.isAvailable}" class="text-danger">Not Available</span>
+                        </p>
+                        <p class="card-text"><strong>Description:</strong> <span th:text="${apartment.description}"></span></p>
+                        <p class="card-text"><strong>Created At:</strong> <span th:text="${apartment.createdAt}"></span></p>
+
+                        <!-- Booking Button if available -->
+                        <div class="mt-3" th:if="${apartment.isAvailable}">
+                            <form th:id="'bookForm-' + ${apartment.id}" action="/front-end/apartments/bookApartment" method="post">
+                                <input type="hidden" name="apartmentId" th:value="${apartment.id}" />
+                                <button type="button" class="btn btn-book w-100"
+                                        th:id="'bookButton-' + ${apartment.id}"
+                                        th:attr="onclick='confirmBooking(' + ${apartment.id} + ');'">
+                                    Book Now
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and Booking Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+>>>>>>> 0ee322565c376c5596748b5329149e2f7c0f22e1
     <script>
         function confirmBooking(apartmentId) {
             // Show the confirmation pop-up
             if (confirm("Are you sure you want to book this apartment?")) {
+<<<<<<< HEAD
                 // Disable the button and change the text after confirming the booking
                 let button = document.getElementById('bookButton-' + apartmentId);
                 button.disabled = true;
@@ -17,6 +143,12 @@
 
                 // Submit the form
                 document.getElementById('bookForm-' + apartmentId).submit();
+=======
+                document.getElementById("bookForm-" + apartmentId).submit();
+                let button = document.getElementById('bookButton-' + apartmentId);
+                button.disabled = true;
+                button.innerText = 'Booked';
+>>>>>>> 0ee322565c376c5596748b5329149e2f7c0f22e1
             }
         }
 
@@ -29,6 +161,7 @@
             });
         }
     </script>
+<<<<<<< HEAD
 
     <style>
         .card-container {
@@ -109,5 +242,7 @@
             </div>
         </div>
     </div>
+=======
+>>>>>>> 0ee322565c376c5596748b5329149e2f7c0f22e1
 </body>
 </html>

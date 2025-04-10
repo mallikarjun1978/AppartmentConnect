@@ -50,7 +50,7 @@ public class FacilitiesFrontEndController {
     public ModelAndView showViewFacilitiesPage() {
         ModelAndView modelAndView = new ModelAndView("view_facilities");
         List<Facilities> facilitiesList = facilitiesService.getAllFacilities();
-        System.out.println("Facilities List: " + facilitiesList); // Debugging
+       // System.out.println("Facilities List: " + facilitiesList); // Debugging
         modelAndView.addObject("facilities", facilitiesList);
         return modelAndView;
     }
@@ -59,7 +59,8 @@ public class FacilitiesFrontEndController {
     @PostMapping("/edit/{id}")
     @ResponseBody
     public String updateFacility(@PathVariable int id, @RequestBody Facilities facility) {
-        try {
+        System.out.println("Updated facility: " + facility);
+    	try {
             facilitiesService.updateFacility(id, facility);
             return "Facility updated successfully!"; // ✅ Success message
         } catch (Exception e) {

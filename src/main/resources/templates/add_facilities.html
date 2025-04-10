@@ -134,7 +134,7 @@
 				};
 
 
-				console.log('Sending data:', facilityData);
+				console.log('Sending data:', JSON.stringify(facilityData));
 				
 				$.ajax({
 					url: '/add-facilities',
@@ -143,6 +143,7 @@
 					data: JSON.stringify(facilityData),
 					success: function (response) {
 						console.log('Success:', response);
+		
 						$('#responseMessage').html('<div class="alert alert-success">Facility added successfully!</div>');
 						$('#addFacilityForm')[0].reset();
 					},

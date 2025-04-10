@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Notifications</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+            background-size: 400% 400%;
+            animation: gradientBG 10s ease infinite;
+            height: 100vh;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .notification-container {
+            max-width: 600px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        .notification-header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .notification-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .message-text {
+            font-size: 16px;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .timestamp {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .is-read {
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .unread {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .read {
+            background-color: #28a745;
+            color: white;
+            cursor: default;
+        }
+
+        .is-read:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="notification-container">
+            <div class="notification-header">📢 Notifications</div>
+
+            <div th:each="notification : ${notifications}" class="notification-item">
+                <div>
+					<span class="message-text" th:text="${notification.title}"></span> <br>
+                    <span class="message-text" th:text="${notification.message}"></span> <br>
+                    <div class="timestamp" th:text="${#temporals.format(notification.timestamp, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+                <div>
+                    <!-- Form to mark notification as read -->
+					<form th:action="@{/markAsRead/{id}(id=${notification.id})}" method="post">
+                        <button th:classappend="${notification.isRead} ? 'read' : 'unread'" 
+                                class="is-read" 
+                                th:text="${notification.isRead} ? 'Read' : 'Mark as Read'"
+                                th:disabled="${notification.isRead}">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
