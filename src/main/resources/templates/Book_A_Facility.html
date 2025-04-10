@@ -14,7 +14,8 @@
     </script>
 </head>
 <body class="container mt-5">
-    <!-- Include the navigation menu -->
+
+    <!-- Include the navigation menu (residentMenu fragment) -->
     <div th:replace="~{residentMenu :: nav}"></div>
 
     <h2 class="mb-4">Available Facilities</h2>
@@ -51,7 +52,7 @@
                 <td th:text="${facility.createdAt}"></td>
                 <td th:text="${facility.updatedAt}"></td>
                 <td>
-                    <form th:id="'bookForm-' + ${facility.facilityId}" action="/front-end/facilities/bookFacility" method="post">
+                    <form th:id="'bookForm-' + ${facility.facilityId}" action="/front-end/facilitiesbooking/bookFacility" method="post">
                         <input type="hidden" name="facilityId" th:value="${facility.facilityId}" />
                         
                         <!-- Check if the facility is active, if not, disable the button -->

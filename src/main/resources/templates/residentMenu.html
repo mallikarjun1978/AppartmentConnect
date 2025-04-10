@@ -10,34 +10,29 @@
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-    
     <style>
+        /* Navbar styling */
         .navbar {
-            background-color: royalblue !important;
+            background-color: #004085; /* Deep blue background */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the navbar */
         }
-        .navbar-nav .nav-item .nav-link {
-            color: white !important;
+
+        .navbar .navbar-brand {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
         }
-        .navbar-nav .nav-item .nav-link:hover {
-            color: #d1e7fd !important;
-            text-decoration: underline;
+
+        .navbar .nav-link {
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
         }
-        .navbar .navbar-toggler-icon {
-            background-color: white;
-        }
-        .nav-link i {
-            margin-right: 8px;
-        }
-        .logout-btn {
-            background-color: red;
-            color: white !important;
+
+        .navbar .nav-link:hover {
+            color: #d1e7fd;
+            background-color: #0056b3;
             border-radius: 5px;
-            padding: 5px 10px;
-            text-decoration: none;
-        }
-        .logout-btn:hover {
-            background-color: darkred;
-            text-decoration: none;
         }
     </style>
 </head>
@@ -70,17 +65,15 @@
                             <i class="fas fa-wrench"></i> Maintenance Requests
                         </a>
                     </li>
-					<li class="nav-item dropdown">
-						 <a class="nav-link dropdown-toggle" href="#" id="manageFacilitiesBooking" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						 <i class="fas fa-building"></i>FacilitiesBooking
-						</a>
-							<ul class="dropdown-menu" aria-labelledby="manageFacilitiesBooking">
-								<li><a class="dropdown-item" th:href="#">Book a facility</a></li>
-								<li><a class="dropdown-item" th:href="#">History</a></li>
-							</ul>
-					</li>
-					
-					
+                    <li class="nav-item dropdown">
+                         <a class="nav-link dropdown-toggle" href="#" id="manageFacilitiesBooking" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                         <i class="fas fa-building"></i>FacilitiesBooking
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="manageFacilitiesBooking">
+                            <li><a class="dropdown-item" th:href="@{/front-end/facilitiesbooking/available-facilities}">Book a facility</a></li>
+                            <li><a class="dropdown-item" th:href="@{/front-end/facilitiesbooking/booking-details}">History</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/resident/notifications}">
                             <i class="fas fa-bell"></i> Notifications

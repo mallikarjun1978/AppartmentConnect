@@ -15,4 +15,5 @@ public interface FacilitiesBookingService {
 	boolean deleteFacilitiesBooking(int facility_bookingId);
 	boolean updateFacilitiesBooking(FacilitiesBooking facilitiesbooking);
 	
+	
 }

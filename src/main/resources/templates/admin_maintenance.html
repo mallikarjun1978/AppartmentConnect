@@ -9,39 +9,115 @@
 
     <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+
+    <style>
+        /* Gradient background */
+        body {
+            background: linear-gradient(135deg, white 0%, lightpink 100%);
+            min-height: 100vh;
+            padding-bottom: 30px;
+        }
+
+        /* Container Styling */
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        /* Table Styling */
+        table.dataTable thead th {
+            background-color: yellow;
+            color: darkblue;
+        }
+
+        table.dataTable tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .btn-change-status {
+            background-color: orange;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .btn-change-status:hover {
+            background-color: #0056b3;
+        }
+
+        .h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+		/* Custom dark blue navbar */
+		        .navbar {
+		            background-color: royalblue !important; /* Dark blue background */
+		        }
+
+		        /* Navbar links color: white */
+		        .navbar-nav .nav-item .nav-link {
+		            color: white !important; /* White text */
+		        }
+
+		        /* Navbar links hover effect */
+		        .navbar-nav .nav-item .nav-link:hover {
+		            color: #d1e7fd !important; /* Light blue color on hover */
+		            text-decoration: underline; /* Optional: add underline on hover */
+		        }
+
+		        /* Adjusting navbar toggler icon color */
+		        .navbar .navbar-toggler-icon {
+		            background-color: white; /* White color for the toggler icon */
+		        }
+
+		        /* Optional: add some space between icons and text */
+		        .nav-link i {
+		            margin-right: 8px;
+		        }
+
+    </style>
 </head>
 <body>
-	
-	<!-- Include the navigation menu -->
-	    <div th:insert="~{adminmenu :: nav}"></div>
 
-    <div class="container">
-        <h2>Maintenance Requests</h2>
-        <table class="table table-bordered table-hover">
+    <!-- Include the navigation menu -->
+    <div th:insert="~{adminmenu :: nav}"></div>
+
+    <!-- Content -->
+    <div class="container mt-4">
+        <h2>Maintenance Requests</h2><br>
+        <table id="maintenanceTable" class="display table table-bordered table-hover" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Apartment ID</th>
                     <th>Resident Id</th>
                     <th>Issue</th>
-					<th scope="col">Created At</th>
+                    <th>Created At</th>
                     <th>Status</th>
                     <th>Actions</th>
-					
                 </tr>
             </thead>
             <tbody>
-                <!-- Loop over maintenance requests passed from the model -->
+                <!-- Loop over maintenance requests -->
                 <tr th:each="request : ${maintenanceRequests}">
                     <td th:text="${request.id}"></td>
                     <td th:text="${request.apartmentId}"></td>
                     <td th:text="${request.residentId}"></td>
                     <td th:text="${request.requestDescription}"></td>
-					<td th:text="${request.createdAt}"></td>
-					<td th:text="${request.status}"></td>
-                    
+                    <td th:text="${request.createdAt}"></td>
+                    <td th:text="${request.status}"></td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm btn-change-status"
+                        <button type="button" class="btn btn-change-status btn-sm"
                                 th:data-request-id="${request.id}">
                             <i class="fas fa-sync-alt"></i> Change Status
                         </button>
@@ -51,11 +127,16 @@
         </table>
     </div>
 
+    <!-- jQuery, DataTables, and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
     <script>
         $(document).ready(function() {
+            // Initialize DataTable
+            $('#maintenanceTable').DataTable();
+
             // Handle change status button click
             $('.btn-change-status').on('click', function() {
                 var requestId = $(this).data('requestId');
@@ -65,10 +146,9 @@
                         method: 'POST',
                         data: { Id: requestId },
                         success: function(response) {
-							console.log(response); // Check the actual response from the server
                             if (response.success) {
                                 alert('Status updated successfully');
-                                location.reload(); // Reload the page to reflect changes
+                                location.reload();
                             } else {
                                 alert('Error updating status');
                             }
@@ -81,6 +161,5 @@
             });
         });
     </script>
-
 </body>
 </html>
