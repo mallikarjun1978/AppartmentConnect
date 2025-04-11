@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Booking Details</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<style>
+		body {
+			background: linear-gradient(to right, rgba(255, 126, 95, 0.8), rgba(134, 168, 231, 0.8), rgba(127, 127, 213, 0.8)),
+				url('https://source.unsplash.com/1600x900/?apartment,building') no-repeat center center fixed;
+			background-size: cover;
+			color: white;
+		}
+
+		.container {
+			margin-top: 50px;
+			background-color: rgba(0, 0, 0, 0.7);
+			padding: 30px;
+			border-radius: 15px;
+		}
+
+		.card {
+			background-color: rgba(255, 255, 255, 0.1);
+			color: white;
+			border: none;
+			border-radius: 15px;
+			box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+		}
+
+		.apartment-img {
+			height: 200px;
+			object-fit: cover;
+			width: 100%;
+			border: 2px solid #000000;
+			border-radius: 10px;
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+			transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+		}
+
+		.btn-primary {
+			border-radius: 20px;
+			font-weight: bold;
+			background-color: #007bff;
+			transition: 0.3s ease-in-out;
+		}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+			transform: scale(1.05);
+		}
+
+		h2 {
+			font-weight: bold;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h2>Booking Details</h2>
+
+		<div class="card mt-4 p-4">
+			<!-- Apartment Image -->
+			<img th:if="${apartment.imageUrl}" th:src="@{${apartment.imageUrl}}" alt="Apartment Image"
+				class="apartment-img" />
+
+
+			<p><strong>Apartment:</strong> <span th:text="${apartment.name}"></span></p>
+			<p><strong>Location:</strong> <span th:text="${apartment.location}"></span></p>
+			<p><strong>Price:</strong> ₹<span th:text="${apartment.price}"></span></p>
+			<p><strong>Booking Date:</strong> <span th:text="${booking.createdDate}"></span></p>
+
+			<p><strong>Status:</strong>
+				<span th:if="${booking.status == 'ACCEPTED'}" class="text-success">Accepted</span>
+				<span th:if="${booking.status == 'REJECTED'}" class="text-danger">Rejected</span>
+				<span th:if="${booking.status == 'PENDING'}" class="text-warning">Pending Approval</span>
+			</p>
+		</div>
+
+		<div class="text-center">
+			<a href="/front-end/apartments/available-apartments" class="btn btn-primary mt-4">Back to Listings</a>
+		</div>
+	</div>
+</body>
+
+</html>

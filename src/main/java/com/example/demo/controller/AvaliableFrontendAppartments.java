@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.entity.Apartments;
@@ -31,11 +33,11 @@ public class AvaliableFrontendAppartments {
     private BookingRequestsService bookingRequestService;
     
     @Autowired
-	private HttpSession session; // Inject HttpSession
-	
+    private HttpSession session;
 
+    // Show available apartments
     @GetMapping("/available-apartments")
-    public String availableApartments(Model model, HttpSession session) {
+    public String availableApartments(Model model) {
         List<Apartments> apartments = apartmentService.getAllApartments();
         model.addAttribute("apartments", apartments);
 
@@ -43,43 +45,59 @@ public class AvaliableFrontendAppartments {
         String message = (String) session.getAttribute("message");
         if (message != null) {
             model.addAttribute("message", message);
-            session.removeAttribute("message"); // Remove after displaying
+            session.removeAttribute("message");
         }
 
         return "available-apartments"; 
     }
 
+    // Handle booking request
     @PostMapping("/bookApartment")
     public String bookApartment(@ModelAttribute BookingRequests bookingRequest, RedirectAttributes redirectAttributes) {
-        System.out.println("okk");
         Residents resident = (Residents) session.getAttribute("residents");
-		
-    	Integer residentId = resident.getId();  
-    	System.out.println("residentId: " + residentId);
-        if (residentId == null) {
+        if (resident == null) {
             return "redirect:/front-end/apartments/available-apartments";
         }
 
-        bookingRequest.setResidentId(residentId);
+        bookingRequest.setResidentId(resident.getId());
         bookingRequest.setStatus("PENDING");
-
         bookingRequestService.addbookings(bookingRequest);
-        
-        // 1. get appartment id
-        int apartmentId = bookingRequest.getApartmentId();
-        
-        //2. update appartment availability
-        Optional<Apartments> apartment = apartmentService.getApartmentsById(apartmentId);
-        if(apartment.isPresent()) {
-        	Apartments ap = apartment.get();
-        	ap.setIsAvailable(false);
-        	apartmentService.updateApartments(ap);
-        }
-        
 
-        // Add flash attribute for success message
-        redirectAttributes.addFlashAttribute("message", "Your booking request has been submitted and is pending admin approval.");
+        // Update apartment availability
+        Optional<Apartments> apartment = apartmentService.getApartmentsById(bookingRequest.getApartmentId());
+        apartment.ifPresent(ap -> {
+            ap.setIsAvailable(false);
+            apartmentService.updateApartments(ap);
+        });
 
-        return "redirect:/front-end/apartments/available-apartments";
+        // Optional flash message
+        session.setAttribute("message", "Your booking request has been submitted and is pending admin approval.");
+
+        return "redirect:/front-end/apartments/bookingform";
     }
+
+    // Show booking confirmation form
+    @GetMapping("/bookingform")
+    public String bookingForm(Model model, HttpSession session) {
+        Residents resident = (Residents) session.getAttribute("residents");
+
+        if (resident == null) {
+            return "login"; 
+        }
+
+        int residentId = resident.getId();
+        BookingRequests booking = bookingRequestService.getLatestBookingByResidentId(residentId);
+        model.addAttribute("booking", booking);
+
+        Optional<Apartments> apartmentOpt = apartmentService.getApartmentsById(booking.getApartmentId());
+        apartmentOpt.ifPresent(apartment -> model.addAttribute("apartment", apartment));
+
+        return "bookingform";
+    }
+    
+  
+
+
+
+
 }
