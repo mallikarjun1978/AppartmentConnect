@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Residents;
+import com.example.demo.service.ApartmentsService;
+import com.example.demo.service.MaintenanceRequestService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,6 +25,12 @@ import jakarta.servlet.http.HttpSession;
 public class ResidentsFrontEndController {
 	@Autowired
 	private HttpSession session; // Inject HttpSession
+	
+	@Autowired
+	private ApartmentsService apartmentService;
+	
+	@Autowired
+	private MaintenanceRequestService maintenanceRequestService;
 	
 	// Map the /login endpoint to render the login.html page
     @GetMapping("/login")
@@ -84,6 +92,11 @@ public class ResidentsFrontEndController {
 		
 		System.out.println("residents=====" + resident);
 		model.addAttribute("resident_name", resident.getFirstName()+" "+resident.getLastName());
+		
+		model.addAttribute("senderId", resident.getId());
+		model.addAttribute("total_apartments", apartmentService.getTotalApartments());
+		model.addAttribute("available_apartments", apartmentService.getAvailableApartments());
+		model.addAttribute("maintainance_pending_count", maintenanceRequestService.countPendingRequests());
 		ModelAndView view = new ModelAndView("residenthome");
 		return view;
 	} 

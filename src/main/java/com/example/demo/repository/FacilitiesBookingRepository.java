@@ -9,5 +9,5 @@ import com.example.demo.entity.FacilitiesBooking;
 
 @Service
 public interface FacilitiesBookingRepository extends JpaRepository<FacilitiesBooking,Integer>{
-	
+	List<FacilitiesBooking> findByResidentId(Integer residentId);
 }

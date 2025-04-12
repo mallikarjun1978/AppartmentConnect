@@ -1,107 +1,198 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Resident Dashboard</title>
+    <title>AppartmentConnect</title>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-    <!-- Font Awesome for icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+   
+	<style>
+	       /* General body styling */
+	       body {
+	           background-color: #f0f2f5; /* Slightly lighter gray for the background */
+	           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+	           margin: 0;
+	           padding: 0;
+	       }
 
-    <style>
-<<<<<<< HEAD
-        /* Navbar styling */
-        .navbar {
-            background-color: #004085; /* Deep blue background */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the navbar */
-=======
-        /* Navbar Styling */
-        .navbar {
-            background-color: #004085; /* Deep blue background */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 10px 20px;
->>>>>>> 0ee322565c376c5596748b5329149e2f7c0f22e1
-        }
+	       /* Navbar styling */
+	       .navbar {
+	           background-color: #004085; /* Deep blue background */
+	           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the navbar */
+	       }
 
-        .navbar .navbar-brand {
-            color: white;
-<<<<<<< HEAD
-            font-size: 2rem;
-            font-weight: bold;
-        }
+	       .navbar .navbar-brand {
+	           color: white;
+	           font-size: 2rem;
+	           font-weight: bold;
+	       }
 
-        .navbar .nav-link {
-            color: white;
-            font-size: 1.2rem;
-            padding: 10px 20px;
-=======
-            font-size: 1.8rem;
-            font-weight: bold;
-        }
+	       .navbar .nav-link {
+	           color: white;
+	           font-size: 1.2rem;
+	           padding: 10px 20px;
+	       }
 
-        .navbar-nav .nav-item {
-            margin-right: 10px; /* Space between menu items */
-        }
+	       .navbar .nav-link:hover {
+	           color: #d1e7fd;
+	           background-color: #0056b3;
+	           border-radius: 5px;
+	       }
 
-        .navbar .nav-link {
-            color: white;
-            font-size: 1rem;
-            padding: 8px 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px; /* Space between icon and text */
-        }
+	       /* Main content area */
+	       main {
+	           background-color: white;
+	           border-radius: 12px;
+	           box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+	           padding: 30px;
+	           margin-top: 20px;
+	       }
 
-        .navbar .nav-link i {
-            font-size: 1.2rem; /* Adjust icon size */
-        }
+	       /* Title */
+	       h1 {
+	           color: #343a40;
+	           text-align: center;
+	           font-size: 3rem;
+	           margin-bottom: 30px;
+	       }
 
-        .navbar .nav-link:hover {
-            color: #d1e7fd;
-            background-color: #0056b3;
-            border-radius: 5px;
-        }
+	       /* Card styling */
+	       .card {
+	           border-radius: 12px;
+	           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	           transition: transform 0.3s ease, box-shadow 0.3s ease;
+	       }
 
-        .logout-btn {
-            color: white;
-            font-size: 1rem;
-            padding: 8px 12px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #dc3545; /* Red logout button */
-            border-radius: 5px;
-            padding: 6px 12px;
-        }
+	       .card:hover {
+	           transform: translateY(-5px); /* Lift effect on hover */
+	           box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+	       }
 
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
+	       .card-body {
+	           padding: 25px;
+			background-color: #d1e7fd;
+	       }
 
-        /* Navbar Toggler Icon */
-        .navbar-toggler {
-            border: none;
-        }
+	       .card-title {
+	           font-size: 1.8rem;
+	           color: #343a40;
+	           font-weight: 600;
+	           margin-bottom: 15px;
+	       }
 
-        .navbar-toggler-icon {
-            filter: invert(1);
->>>>>>> 0ee322565c376c5596748b5329149e2f7c0f22e1
-        }
+	       .card-text {
+	           font-size: 1.2rem;
+	           color: #6c757d;
+	       }
 
-        .navbar .nav-link:hover {
-            color: #d1e7fd;
-            background-color: #0056b3;
-            border-radius: 5px;
-        }
-    </style>
+	       .card a {
+	           font-size: 1.1rem;
+	           color: #007bff;
+	           text-decoration: none;
+	       }
+
+	       .card a:hover {
+	           text-decoration: underline;
+	       }
+
+	       /* Section styling */
+	       section {
+	           margin-bottom: 30px;
+	       }
+
+	       /* Button styling */
+	       .btn-custom {
+	           background-color: #004085;
+	           color: white;
+	           border-radius: 5px;
+	       }
+
+	       .btn-custom:hover {
+	           background-color: #0056b3;
+	           color: #e9ecef;
+	       }
+
+	       /* Responsive adjustments */
+	       @media (max-width: 768px) {
+	           .card {
+	               margin-bottom: 20px;
+	           }
+	           h1 {
+	               font-size: 2.5rem;
+				text-shadow: 3px 3px 10px skyblue; /* Sky blue text shadow */
+	           }
+	       }
+
+	       /* Spacing between cards */
+	       .card-deck .card {
+	           margin-bottom: 20px;
+	       }
+		   
+		   /*  */
+		   .container {
+		              margin-top: 50px;
+		              
+		              padding: 20px;
+		              border-radius: 10px;
+		          }
+
+		          .card {
+		              border-radius: 15px;
+		              overflow: hidden;
+		              transition: transform 0.3s ease-in-out;
+		              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+		              background-color: white;
+		              color: black;
+		          }
+
+		          .card:hover {
+		              transform: scale(1.05);
+		          }
+
+		          .apartment-img {
+		              height: 200px;
+		              object-fit: cover;
+		              width: 100%;
+		              border-radius: 10px;
+		          }
+
+		          .btn-book {
+		              font-weight: bold;
+		              border-radius: 20px;
+		              background-color: #007bff;
+		              color: white;
+		              transition: 0.3s ease-in-out;
+		          }
+
+		          .btn-book:hover {
+		              background-color: #0056b3;
+		              transform: scale(1.1);
+		          }
+
+		          .booked {
+		              background-color: gray !important;
+		              cursor: not-allowed;
+		          }
+
+		          .card-container {
+		              display: grid;
+		              grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		              gap: 20px;
+		          }
+
+		          
+		   
+		   
+		   
+	   </style>
 </head>
-<body>
+
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Resident Dashboard</a>
+		
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -127,21 +218,22 @@
                             <i class="fas fa-wrench"></i> Maintenance
                         </a>
                     </li>
-<<<<<<< HEAD
+
                     <li class="nav-item dropdown">
                          <a class="nav-link dropdown-toggle" href="#" id="manageFacilitiesBooking" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                          <i class="fas fa-building"></i>FacilitiesBooking
-=======
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/front-end/apartments/bookingform}">
-                            <i class="fas fa-calendar-alt"></i> Booking
->>>>>>> 0ee322565c376c5596748b5329149e2f7c0f22e1
-                        </a>
+                         </a>
                         <ul class="dropdown-menu" aria-labelledby="manageFacilitiesBooking">
                             <li><a class="dropdown-item" th:href="@{/front-end/facilitiesbooking/available-facilities}">Book a facility</a></li>
-                            <li><a class="dropdown-item" th:href="@{/front-end/facilitiesbooking/booking-details}">History</a></li>
+                            <li><a class="dropdown-item" th:href="@{/front-end/facilitiesbooking/history}">History</a></li>
                         </ul>
                     </li>
+					<li class="nav-item">
+					                        <a class="nav-link" th:href="@{/front-end/apartments/bookingform}">
+					                            <i class="fas fa-calendar-alt"></i> Booking
+
+					                        </a>
+					</li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/resident/notifications}">
                             <i class="fas fa-bell"></i> Notifications
@@ -157,8 +249,10 @@
         </div>
     </nav>
 
+	<span>
     <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-</body>
-</html>
+	<!-- Bootstrap 5 JS, Popper.js, and jQuery -->
+	   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+	   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+	</span>

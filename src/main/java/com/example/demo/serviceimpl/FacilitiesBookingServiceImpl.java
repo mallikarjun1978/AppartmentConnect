@@ -79,6 +79,12 @@ public class FacilitiesBookingServiceImpl implements FacilitiesBookingService {
 		}
 	}
 
+	@Override
+	public List<FacilitiesBooking> getBookingsByResidentId(Integer residentId) {
+		
+		 return facilitiesbookingRepository.findByResidentId(residentId);
+	}
+
 
 	
 	

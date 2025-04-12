@@ -33,7 +33,7 @@ public class FacilitiesBooking {
 	@Column(name="available_time",nullable=true)
 	private String available_time;
 	@Column(name="resident_id",nullable=true)
-	private int resident_id;
+	private int residentId;
 	@Column(name="booking_status",nullable=true)
 	private String booking_status;
 	@Column(name="booking_date",nullable=true)

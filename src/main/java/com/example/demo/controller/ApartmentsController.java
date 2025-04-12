@@ -20,33 +20,14 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class ApartmentsController {
 
     @Autowired
     private ApartmentsServiceImpl apartmentsService;
     
     
-   
 
-
-
-	@GetMapping("/apartments/{id}")
-	public ResponseEntity<Apartments> getApartmentById(@PathVariable int id) {
-		Optional<Apartments> apartmentOptional = apartmentsService.getApartmentsById(id);
-
-		if (apartmentOptional.isPresent()) {
-			return new ResponseEntity<>(apartmentOptional.get(), HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
-
-	@PostMapping("/apartments")
-	public ResponseEntity<String> addApartment(@RequestBody Apartments apartments) {
-		apartmentsService.addApartments(apartments);
-		return new ResponseEntity<>("Apartment added successfully", HttpStatus.CREATED);
-	}
 
     // ========== REST APIs ==========
 
@@ -73,7 +54,6 @@ public class ApartmentsController {
             return new ResponseEntity<>("Failed to add apartment: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
     @PutMapping("/apartments/{id}")
     public ResponseEntity<String> updateApartment(
@@ -109,42 +89,6 @@ public class ApartmentsController {
         return "addapartment";
     }
 
-
-	@GetMapping("/viewapartments")
-	public ModelAndView viewApartments(Model model) {
-		System.out.println("ok1111");
-		List<Apartments> apartmentsList = apartmentsService.getAllApartments();
-		for (Apartments app : apartmentsList) {
-			System.out.println(app);
-		}
-		model.addAttribute("apartments", apartmentsList);
-		ModelAndView view = new ModelAndView("viewapartments");
-		return view;
-	}
-
-	@GetMapping("/editapartment/{id}")
-	public ModelAndView editApartment(@PathVariable int id, Model model) {
-	    // Retrieve the apartment by id
-	    Optional<Apartments> apartment = apartmentsService.getApartmentsById(id);
-
-	    if (apartment.isPresent()) {
-	        // If the apartment exists, add it to the model
-	        model.addAttribute("apartment", apartment.get());  // Use "apartment" instead of "apartments" to match the model name
-
-	        // Return a ModelAndView with the view name and model
-	        return new ModelAndView("editapartment"); // The view name (editapartment.jsp or editapartment.html)
-	    } else {
-	        // If the apartment doesn't exist, redirect to the list of apartments
-	        return new ModelAndView("redirect:/viewapartments");
-	    }
-	}
-
-
-	@PostMapping("/updateapartment")
-	public ModelAndView updateApartment(@ModelAttribute Apartments apartment) {
-		ModelAndView modelAndView = new ModelAndView("redirect:/viewapartments");
-		Optional<Apartments> existingApartmentOptional = apartmentsService.getApartmentsById(apartment.getId());
-
     @PostMapping("/addapartments")
     public String addApartmentWeb(@ModelAttribute("apartments") Apartments apartment,
                                   @RequestParam("imageFile") MultipartFile imageFile,
@@ -175,7 +119,6 @@ public class ApartmentsController {
         }
     }
 
-
     @PostMapping("/updateapartment")
     public String updateApartmentWeb(@ModelAttribute Apartments apartment,
                                      @RequestParam("imageFile") MultipartFile imageFile,
@@ -193,8 +136,5 @@ public class ApartmentsController {
     public String deleteApartmentWeb(@PathVariable int id) {
         apartmentsService.deleteApartments(id);
         return "redirect:/viewapartments";
-        
-       
-
-    }
+            }
 }

@@ -60,11 +60,11 @@ public class FacilitiesBookingFrontEndController {
 	     Residents resident = (Residents) session.getAttribute("residents");
 
 	     Integer residentId = resident != null ? resident.getId() : null;
-	     System.out.println("Resident ID: " + residentId);
+	    // System.out.println("Resident ID: " + residentId);
 	    
 
 	     // Set resident ID and initial booking status
-	     facilitiesBooking.setResident_id(residentId);
+	     facilitiesBooking.setResidentId(residentId);
 	     facilitiesBooking.setBooking_status("PENDING");
 	     
 	     
@@ -96,7 +96,27 @@ public class FacilitiesBookingFrontEndController {
 	     return view;
 	 }
 	 
-	 
+	 @GetMapping("/history")
+	 public ModelAndView viewMyBookings(Model model, HttpSession session) {
+	     // Retrieve the logged-in resident
+	     Residents resident = (Residents) session.getAttribute("residents");
+	     if (resident == null) {
+	         // Handle unauthenticated access (redirect to login or show error)
+	         return new ModelAndView("redirect:/login"); 
+	     }
+
+	     // Get resident ID
+	     Integer residentId = resident.getId();
+
+	     // Fetch bookings by resident ID
+	     List<FacilitiesBooking> bookings = facilitiesbookingservice.getBookingsByResidentId(residentId);
+
+	     // Add bookings to the model
+	     model.addAttribute("bookings", bookings);
+
+	     return new ModelAndView("History"); // This is your Thymeleaf HTML view
+	 }
+
 
 
 }
