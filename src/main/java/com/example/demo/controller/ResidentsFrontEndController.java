@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entity.Residents;
+import com.example.demo.service.ResidentsService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,6 +26,8 @@ import jakarta.servlet.http.HttpSession;
 public class ResidentsFrontEndController {
 	@Autowired
 	private HttpSession session; // Inject HttpSession
+	
+	
 	
 	// Map the /login endpoint to render the login.html page
     @GetMapping("/login")
@@ -87,7 +92,7 @@ public class ResidentsFrontEndController {
 		ModelAndView view = new ModelAndView("residenthome");
 		return view;
 	} 
-
+	  
 	
 	
 	

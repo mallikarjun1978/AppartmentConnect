@@ -1,9 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.Messages;
+import com.example.demo.entity.Residents;
 import com.example.demo.service.MessagesService;
+import com.example.demo.service.ResidentsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,6 +20,8 @@ public class AdminDashBoard {
 
     @Autowired
     private MessagesService messageService;
+    @Autowired
+	private ResidentsService residentsService;
 
     @GetMapping("/adminhome")
     public ModelAndView adminHome() {
@@ -33,4 +39,14 @@ public class AdminDashBoard {
 
         return modelAndView;
     }
-}
+        
+    @GetMapping("/residentslist")
+    public String viewResidentsList(Model model) {
+        List<Residents> residents = residentsService.getAllResidents();
+        model.addAttribute("residents", residents);
+        return "residentslist"; // Match with your HTML filename (residentsList.html)
+    }
+
+
+    }
+
