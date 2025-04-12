@@ -12,6 +12,45 @@
             }
         }
     </script>
+	<style>
+	        .card-container {
+	            display: grid;
+	            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	            gap: 20px;
+	        }
+	        
+	        .card {
+	            width: 100%;
+	        }
+
+	        .navbar {
+	            background-color: #004085; /* Deep blue background */
+	            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the navbar */
+	        }
+
+	        .navbar .navbar-brand {
+	            color: white;
+	            font-size: 2rem;
+	            font-weight: bold;
+	        }
+
+	        .navbar .nav-link {
+	            color: white;
+	            font-size: 1.2rem;
+	            padding: 10px 20px;
+	        }
+
+	        .navbar .nav-link:hover {
+	            color: #d1e7fd;
+	            background-color: #0056b3;
+	            border-radius: 5px;
+	        }
+
+	        .booked {
+	            background-color: gray;
+	        }
+	    </style>
+
 </head>
 <body class="container mt-5">
 
