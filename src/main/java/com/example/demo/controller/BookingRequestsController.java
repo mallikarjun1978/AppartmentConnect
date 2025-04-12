@@ -65,6 +65,10 @@ public class BookingRequestsController {
 	  bookingId, @RequestBody BookingRequests updatedBooking) { boolean flag =
 	  bookingservice.updateBookings(bookingId, updatedBooking); return new
 	  ResponseEntity<>(flag, HttpStatus.OK); }
+	  
+	
+
+	 
 	 
 
 }

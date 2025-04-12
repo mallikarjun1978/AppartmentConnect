@@ -13,6 +13,13 @@ public interface  BookingRequestsService {
 	BookingRequests getBookingsById(int bookingId);
 	Boolean deleteBookings(int bookingId);
 	Boolean updateBookings( int bookingId, BookingRequests bookings );
+	List<BookingRequests> getRecentBookings(int count);
+	public BookingRequests getLatestBookingByResidentId(int residentId);
+	List<BookingRequests> getAllBookingsByResidentId(int residentId);
+	
+
+	
+
 	
 	
 	
